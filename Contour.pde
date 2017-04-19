@@ -8,7 +8,7 @@ public class Contour {
     // Creating the Isosurface
     grid = g;
     iso = new IsoSurface(parent, new PVector(0,0,0), grid.bounds(), 16);
-  }
+  } 
 
   public void update(List <PVector>points, List<Float> weights) {
     for(int i = 0; i < points.size(); i++) {

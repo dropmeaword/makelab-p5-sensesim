@@ -1,4 +1,4 @@
-class SensorGrid {
+  class SensorGrid {
 
   public int _width, _height;
   public ModelSensor [][]grid;

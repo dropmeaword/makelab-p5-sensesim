@@ -9,18 +9,15 @@ PeasyCam cam;
 PMatrix3D currCameraMatrix;
 PGraphics3D g3; 
 
-
 int threshold = 100;
 int detail = 100;
 int sensitivity = 30;
-
 
 final static int GRID_H = 8;
 final static int GRID_W = 6;
 
 SensorGrid grid;
 LightGrid Lgrid;
-
 
 PGraphics view2d;
 
