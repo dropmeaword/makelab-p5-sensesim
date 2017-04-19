@@ -1,8 +1,6 @@
 import controlP5.*;
-
 import ComputationalGeometry.*;
 import gab.opencv.*;
-import processing.video.*;
 import java.util.*;
 import peasy.*;
 
@@ -25,44 +23,44 @@ SensorGrid grid;
 PGraphics view2d;
 
 PVector track;
-  PVector cursor;
+PVector cursor;
 Contour contour;
 
 void init_gui() {
   cp5 = new ControlP5(this);
 
   cursor = new PVector(100, 100);
-  
+
   //Group g1 = cp5.addGroup("g1")
   //              .setPosition(cursor.x, cursor.y)
   //              .setBackgroundHeight(100)
   //              .setBackgroundColor(color(255,50))
   //              ;
-                     
+
 
   cursor.y = 500;
   cursor.x = 40;
-  
+
   cursor.y += 15;
   cp5.addSlider("detail")
-      .setPosition(cursor.x, cursor.y)
-     .setRange(0,16)
-     //.setGroup(g1)
-     ;
+    .setPosition(cursor.x, cursor.y)
+    .setRange(0, 16)
+    //.setGroup(g1)
+    ;
 
   cursor.y += 15;
   cp5.addSlider("threshold")
-      .setPosition(cursor.x, cursor.y)
-     .setRange(0.01,12)
-     //.setGroup(g1)
-     ;
+    .setPosition(cursor.x, cursor.y)
+    .setRange(0.01, 12)
+    //.setGroup(g1)
+    ;
 
   cursor.y += 15;
   cp5.addSlider("sensitivity")
     .setPosition(cursor.x, cursor.y)
-     .setRange(0,5000)
-     //.setGroup(g1)
-     ;
+    .setRange(0, 5000)
+    //.setGroup(g1)
+    ;
 
   cp5.setAutoDraw(false);
 }
@@ -71,7 +69,7 @@ void setup() {
   size(1024, 600, P3D);
   g3 = (PGraphics3D)g;
   grid = new SensorGrid(GRID_W, GRID_H);
-  track = new PVector(0 , 0, 0);
+  track = new PVector(0, 0, 0);
 
   view2d = createGraphics(800, 600, P3D);
 
@@ -81,7 +79,7 @@ void setup() {
   cam = new PeasyCam(this, 400);
   cam.setMinimumDistance(50);
   cam.setMaximumDistance(1000);
-  
+
   init_gui();
 }
 
@@ -103,11 +101,11 @@ void draw_gui() {
 
   track.x = mouseX - xloc;
   track.y = mouseY - yloc;
-  
+
   grid.sense(track.x, track.y);
   grid.draw(view2d, xloc, yloc);
   view2d.endDraw();
-  
+
   image(view2d, 0, 0);
 
   cam.endHUD();
@@ -123,7 +121,7 @@ void draw() {
   //lights();
 
   background(0);
-  
+
   //update();
 
   ////float cameraY = 200; //height/8.0;
@@ -133,13 +131,13 @@ void draw() {
   ////perspective(fov, aspect, cameraZ/10.0, cameraZ*10.0);
 
   pushMatrix();
-    translate(-10, -200);
-    contour.draw(0.001f);
+  translate(-10, -200);
+  contour.draw(0.001f);
   popMatrix();
 
   cam.beginHUD();
   draw_cp5_gui();
   cam.endHUD();
 
-  draw_gui();
+  draw_gui();  
 }
