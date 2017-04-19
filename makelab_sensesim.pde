@@ -15,10 +15,12 @@ int detail = 100;
 int sensitivity = 30;
 
 
-final static int GRID_H = 7;
-final static int GRID_W = 7;
+final static int GRID_H = 8;
+final static int GRID_W = 6;
 
 SensorGrid grid;
+LightGrid Lgrid;
+
 
 PGraphics view2d;
 
@@ -69,6 +71,7 @@ void setup() {
   size(1024, 600, P3D);
   g3 = (PGraphics3D)g;
   grid = new SensorGrid(GRID_W, GRID_H);
+  Lgrid = new LightGrid(GRID_W, GRID_H);
   track = new PVector(0, 0, 0);
 
   view2d = createGraphics(800, 600, P3D);
@@ -104,12 +107,15 @@ void draw_gui() {
 
   grid.sense(track.x, track.y);
   grid.draw(view2d, xloc, yloc);
+  Lgrid.draw(view2d, xloc+400, yloc);
   view2d.endDraw();
 
   image(view2d, 0, 0);
 
   cam.endHUD();
   hint(ENABLE_DEPTH_TEST);
+
+  
 }
 
 void update() {
@@ -132,12 +138,12 @@ void draw() {
 
   pushMatrix();
   translate(-10, -200);
-  contour.draw(0.001f);
+  //contour.draw(0.001f);
   popMatrix();
 
   cam.beginHUD();
   draw_cp5_gui();
   cam.endHUD();
 
-  draw_gui();  
+  draw_gui();
 }
