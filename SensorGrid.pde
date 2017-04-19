@@ -3,6 +3,8 @@ class SensorGrid {
   public int _width, _height;
   public ModelSensor [][]grid;
   public int _step;
+  
+  public int _avgTriggers;
 
   public SensorGrid(int w, int h) {
     _width = w;
@@ -24,11 +26,14 @@ class SensorGrid {
   }
 
   public void sense(float xpos, float ypos) {
+    _avgTriggers = 0;
     for(int j = 0; j < GRID_H; j++) {
       for(int i = 0; i < GRID_W; i++) {
         grid[i][j].sense(xpos, ypos);
+        _avgTriggers += grid[i][j]._triggerCount;
       }
     }
+    _avgTriggers = _avgTriggers / (GRID_H*GRID_W);
   }
   
   public List<PVector> getNodePositions() {
@@ -40,6 +45,16 @@ class SensorGrid {
     }
 
     //println("node positions: " + retval.size() );
+    return retval;
+  }
+
+  public List<Float> getNodeWeights() {
+    List<Float> retval = new ArrayList<Float>();
+    for(int j = 0; j < GRID_H; j++) {
+      for(int i = 0; i < GRID_W; i++) {
+        retval.add( new Float(grid[i][j]._triggerCount) );
+      }
+    }
     return retval;
   }
   

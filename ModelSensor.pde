@@ -7,7 +7,7 @@ class ModelSensor {
   public long _lastDetected; 
   public boolean _triggered;
   
-  public long triggerCount;
+  public long _triggerCount;
   
   protected SensorGrid _parent;
   
@@ -17,6 +17,7 @@ class ModelSensor {
     _radius = radius;
     _lastDetected = -1;
     _triggered = false;
+    _triggerCount = 0;
   }
   
   public double weight() {
@@ -33,6 +34,8 @@ class ModelSensor {
   
   public void draw(PGraphics where) {
     // draw a respresentation of the sensor's state
+
+    //background(0, 0, 0);
     
     int halfr = int(1.0 * _radius / 2.0);
     
@@ -48,6 +51,8 @@ class ModelSensor {
         where.noStroke();
         where.fill(255);
       } else {
+        where.fill(0);
+        where.ellipse(0, 0, 10, 10);
         where.noFill();
         where.stroke(255);
         where.strokeWeight(1);
@@ -67,6 +72,9 @@ class ModelSensor {
         if( (millis() - _lastDetected) > _sensitivity) {
           _lastDetected = -1;
           _triggered = retval = true;
+          _triggerCount++;
+          // @NOTE must debounce so that it's not triggered more than once 
+          // every time you go under the sensor
         }
       }
     } else {
