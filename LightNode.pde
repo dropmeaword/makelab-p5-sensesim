@@ -43,9 +43,26 @@ class LightNode {
     }
   }
 
-  public void paint_gradient(color a, color b, GradientType type) {
-    // something happens here that sends the test pattern command to the node (bothin the simulator and the hardware)
+
+  //!!! For now I use the gradient type that i got from the Arduino code 
+  //public void paint_gradient(color a, color b, GradientType type) {
+  //    // something happens here that sends the test pattern command to the node (bothin the simulator and the hardware)
+
+  //  }
+
+
+  public void paint_gradient(color a, color b) {
+    for (int i = 0; i < PIXEL_COUNT*3; i+=3) {
+      float inter = map(i, 0, PIXEL_COUNT*3, 0, 1);
+      color c = lerpColor(a, b, inter);
+
+      pix[i] = int(red(c));
+      pix[i+1] = int(green(c));
+      pix[i+2] = int(blue(c));
+      
+    }
   }
+
 
 
   public void paint_pixels() {

@@ -44,17 +44,25 @@ class LightGrid {
     where.pushMatrix();
     where.translate(xpos, ypos);
 
-
     //with this you can turn on and of a solid color
     //node[0][0].paint_solid(color(255, 0, 0));
     //node[4][4].paint_solid(color(255, 0, 0));
+    
+    
+    //with this i tested the gradient colors
+    
+    node[0][0].paint_gradient(color (255,0,0), color (0,255,250));
+    node[1][0].paint_gradient(color (255,0,0), color (0,255,250));
+    node[2][3].paint_gradient(color (0,255,0), color (0,255,100));
+    node[0][6].paint_gradient(color (0,0,100), color (23,255,250));
+    node[3][0].paint_gradient(color (255,60,0), color (0,57,250));
+    node[0][4].paint_gradient(color (255,10,9), color (88,3,2));
+    
+    
 
     for (int j = 0; j < GRID_H; j++) {
       for (int i = 0; i < GRID_W; i++) {
         node[i][j].draw(where);
-        if (i % 2 == 1) {
-          node[i][j].paint_solid(color(255, 00, 255));
-        }
       }
     }
     where.popMatrix();
