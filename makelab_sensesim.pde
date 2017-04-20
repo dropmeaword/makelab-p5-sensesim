@@ -25,6 +25,7 @@ PGraphics view2d;
 PVector track;
 PVector cursor;
 Contour contour;
+Person []person;
 
 void init_gui() {
   cp5 = new ControlP5(this);
@@ -71,6 +72,12 @@ void setup() {
   grid = new SensorGrid(GRID_W, GRID_H);
   Lgrid = new LightGrid(GRID_W, GRID_H);
   track = new PVector(0, 0, 0);
+  person = new Person[5];
+  for (int i =0; i < person.length; i++) {
+    PVector pos = new PVector(0, 0, 0);
+    person[i]  = new Person(pos);
+  }
+
 
   view2d = createGraphics(800, 600, P3D);
 
@@ -104,9 +111,17 @@ void draw_gui() {
   track.x = mouseX - xloc;
   track.y = mouseY - yloc;
 
-  grid.sense(track.x, track.y);
+  //grid.sense(track.x, track.y);
+  for (int i = 0; i < person.length; i++) {
+    //fill(255, 255, 0);
+    ellipse(person[i]._pos.x, person[i]._pos.y, 20, 20);
+    println(person[0]._pos.x-xloc, person[0]._pos.y-yloc);
+    grid.sense(person[0]._pos.x-xloc, person[0]._pos.y-yloc);
+  }
+  
   grid.draw(view2d, xloc, yloc);
   Lgrid.draw(view2d, xloc, yloc);
+
 
   view2d.endDraw();
 
@@ -139,4 +154,14 @@ void draw() {
   cam.endHUD();
 
   draw_gui();
+}
+
+
+
+void mousePressed() {
+  if (mouseButton == LEFT) {
+  } else if (mouseButton == RIGHT) {
+    PVector pos = new PVector(mouseX, mouseY, 0);
+    person[0]._pos = pos;
+  }
 }
