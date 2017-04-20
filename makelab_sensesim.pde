@@ -41,7 +41,6 @@ void init_gui() {
 
   cursor.y = 500;
   cursor.x = 40;
-
   cursor.y += 15;
   cp5.addSlider("detail")
     .setPosition(cursor.x, cursor.y)
@@ -78,7 +77,6 @@ void setup() {
     person[i]  = new Person(pos);
   }
 
-
   view2d = createGraphics(800, 600, P3D);
 
   cam = new PeasyCam(this, 400);
@@ -88,10 +86,8 @@ void setup() {
   init_gui();
 
   Lgrid.setCurrentAnimation(new Rest(50, 2, Lgrid.bounds(), Lgrid.Xoffset));
-
   udps = new UDP( this, 6005 ); // this is the for the communication with Grasshopper
 }
-
 
 void draw_cp5_gui() {
   currCameraMatrix = new PMatrix3D(g3.camera);
@@ -111,17 +107,16 @@ void draw_gui() {
   track.x = mouseX - xloc;
   track.y = mouseY - yloc;
 
-  //grid.sense(track.x, track.y);
+  grid.sense(track.x, track.y);
   for (int i = 0; i < person.length; i++) {
     //fill(255, 255, 0);
     ellipse(person[i]._pos.x, person[i]._pos.y, 20, 20);
-    println(person[0]._pos.x-xloc, person[0]._pos.y-yloc);
-    grid.sense(person[0]._pos.x-xloc, person[0]._pos.y-yloc);
+    //println(person[0]._pos.x-xloc, person[0]._pos.y-yloc);
+    //grid.sense(person[0]._pos.x-xloc, person[0]._pos.y-yloc);
   }
   
   grid.draw(view2d, xloc, yloc);
   Lgrid.draw(view2d, xloc, yloc);
-
 
   view2d.endDraw();
 

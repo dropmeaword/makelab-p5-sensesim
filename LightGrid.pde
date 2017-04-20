@@ -10,7 +10,6 @@ class LightGrid {
     _width = w;
     _height = h;
     _step = 60;
-
     node = new LightNode[_width][_height];
 
     int id = 0 ; 
@@ -21,7 +20,6 @@ class LightGrid {
       }
     }
   }
-
   public PVector bounds() {
     return new PVector((_width * _step ), (_height * _step), 100);
   }

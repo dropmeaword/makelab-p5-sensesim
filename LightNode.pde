@@ -35,7 +35,6 @@ class LightNode {
     // something happens here that sends the test pattern command to the node (bothin the simulator and the hardware)
 
     //this is the code for the simulator
-
     for (int i = 0; i < PIXEL_COUNT *3; i+=3) {
       pix[i] = int(red(c));
       pix[i+1] = int(green(c));
@@ -106,7 +105,7 @@ class LightNode {
     where.ellipse(0, 0, _radius*2, _radius*2);
     where.textSize(25);
     where.fill(255, 0, 0);
-    where.text(_id, -20, +20);
+    //where.text(_id, -20, +20);
     where.popMatrix();
   }
 
@@ -118,7 +117,7 @@ class LightNode {
     //draw_basic_circle(where);
     draw_node_sim(where, _pos, _radius);
 
-    text(_id, _pos.x+50, _pos.y +50);
+    //text(_id, _pos.x+50, _pos.y +50);
   }
 
   int pulsingBallSize = 10;
@@ -139,9 +138,9 @@ class LightNode {
     }
   }
 
-
   String toString() {
-
+    //This is where i make a String that we can send to Grasshopper. I dont know if we also can send this to the arduinos
+    //the format of the string is r,g,b r,g,b r,g,b 
     String s = "";  
     for (int i = 0; i < PIXEL_COUNT*3; i+=3) {
       int r = pix[i];
