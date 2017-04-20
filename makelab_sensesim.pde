@@ -1,5 +1,4 @@
 import controlP5.*;
-import ComputationalGeometry.*;
 import gab.opencv.*;
 import java.util.*;
 import peasy.*;
@@ -73,9 +72,6 @@ void setup() {
 
   view2d = createGraphics(800, 600, P3D);
 
-  contour = new Contour(this, grid);
-  contour.append( grid.getNodePositions() );
-
   cam = new PeasyCam(this, 400);
   cam.setMinimumDistance(50);
   cam.setMaximumDistance(1000);
@@ -116,7 +112,7 @@ void draw_gui() {
 }
 
 void update() {
-  contour.update( grid.getNodePositions(), grid.getNodeWeights() );
+  // was used to update the contour
 }
 
 void draw() {
