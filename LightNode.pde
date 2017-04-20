@@ -141,10 +141,13 @@ class LightNode {
 
 
   String toString() {
-    String s = "";
-
-    for (int i = 0; i < PIXEL_COUNT*3; i++) {
-            
+    
+  String s = "";  
+    for (int i = 0; i < PIXEL_COUNT*3; i+=3) {
+      int r = pix[i];
+      int g = pix[i+1];
+      int b = pix[i+2];
+      s = s + r + "," + g + "," + b + " "; 
     }
 
     return s;
