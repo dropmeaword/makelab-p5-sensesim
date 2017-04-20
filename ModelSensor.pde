@@ -64,22 +64,22 @@ class ModelSensor {
   public boolean sense(float tx, float ty) {
     //println("sense called (" + _pos.x + ", " + _pos.y + ")");
     boolean retval = false;
-    if ( Geometry.inCircle(_pos.x, _pos.y, _radius, tx, ty) ) {
-      if (-1 == _lastDetected) {
-        _lastDetected = millis();
-      } else {
-        if ( (millis() - _lastDetected) > _sensitivity) {
-          _lastDetected = -1;
-          _triggered = retval = true;
-          _triggerCount++;
-          // @NOTE must debounce so that it's not triggered more than once 
-          // every time you go under the sensor
+      if ( Geometry.inCircle(_pos.x, _pos.y, _radius, tx, ty) ) {
+        if (-1 == _lastDetected) {
+          _lastDetected = millis();
+        } else {
+          if ( (millis() - _lastDetected) > _sensitivity) {
+            _lastDetected = -1;
+            _triggered = retval = true;
+            _triggerCount++;
+            // @NOTE must debounce so that it's not triggered more than once 
+            // every time you go under the sensor
+          }
         }
+      } else {
+        _triggered = retval = false;
       }
-    } else {
-      _triggered = retval = false;
-    }
-
     return retval;
   } // sense()
+
 } // class
