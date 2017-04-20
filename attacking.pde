@@ -22,7 +22,6 @@ class Attack extends Animation {
       runAni = true;
       pos.x = int(random(_bounds.x+20, _bounds.x+xOffset-20));
       pos.y = int(random(20, _bounds.y-20));
-
       startTime = millis();
     }
     if (runAni) {

@@ -5,7 +5,7 @@ class Rest extends Animation {
   int startTime, delay = 1000;
   PVector _bounds;
   int xOffset;
-
+  color a, b;
 
   Rest(int size, int movement, PVector bounds, int xOff) {
     this.size = size;
@@ -14,6 +14,8 @@ class Rest extends Animation {
     xOffset = xOff;
     pos = new PVector(bounds.x/2+xOff, bounds.y/2);
     startTime = millis();
+    a = color(random(255),random(255),random(255));
+    b = color(random(255),random(255),random(255));
   }
 
   void update() {
@@ -28,7 +30,7 @@ class Rest extends Animation {
   }
   void show() {
     fill(255, 0, 0);
-    ellipse(pos.x, pos.y, size, size);
+    //ellipse(pos.x, pos.y, size, size);
 
     for (int j = 0; j < GRID_H; j++) {
       for (int i = 0; i < GRID_W; i++) {
@@ -36,7 +38,8 @@ class Rest extends Animation {
 
         if (dist < size) {
           //grid.node[i][j].paint_solid(color(255));
-          grid.node[i][j].paint_gradient(color(255, 0, 0), color(0, 0, 255));
+          //grid.node[i][j].paint_gradient(color(255, 0, 0), color(0, 0, 255));
+          grid.node[i][j].paint_gradient(a,b);          
         } else {
           grid.node[i][j].paint_solid(color(0));
         }

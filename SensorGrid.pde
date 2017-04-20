@@ -3,7 +3,6 @@ class SensorGrid {
   public int _width, _height;
   public ModelSensor [][]grid;
   public int _step;
-
   public int _avgTriggers;
 
   public SensorGrid(int w, int h) {

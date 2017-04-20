@@ -86,6 +86,12 @@ void setup() {
   init_gui();
 
   Lgrid.setCurrentAnimation(new Rest(50, 2, Lgrid.bounds(), Lgrid.Xoffset));
+  //Lgrid.setCurrentAnimation(new Attack(10, Lgrid.bounds(), Lgrid.Xoffset));
+  //Lgrid.setCurrentAnimation(new Sleep(1));
+  //Lgrid.setCurrentAnimation(new Lure(50, 2, Lgrid.bounds(), Lgrid.Xoffset));
+  //there should be an "animation" added where 
+
+
   udps = new UDP( this, 6005 ); // this is the for the communication with Grasshopper
 }
 
@@ -114,7 +120,7 @@ void draw_gui() {
     //println(person[0]._pos.x-xloc, person[0]._pos.y-yloc);
     //grid.sense(person[0]._pos.x-xloc, person[0]._pos.y-yloc);
   }
-  
+
   grid.draw(view2d, xloc, yloc);
   Lgrid.draw(view2d, xloc, yloc);
 

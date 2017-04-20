@@ -33,9 +33,7 @@ class ModelSensor {
 
   public void draw(PGraphics where) {
     // draw a respresentation of the sensor's state
-
     //background(0, 0, 0);
-
     //int halfr = int(1.0 * _radius / 2.0);
 
     where.pushMatrix();
