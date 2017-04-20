@@ -27,22 +27,16 @@ class Rest extends Animation {
     ellipseMode(CENTER);
     ellipse(pos.x, pos.y, size, size);
 
-    //for (int i = 0; i < points.length; i++) {
-    //  dist = int(dist(pos.x, pos.y, points[i].x, points[i].y));
-    //  if (dist < size) {
-    //    points[i].c = color(255);
-    //  } else {
-    //    points[i].c = color(0);
-    //  }
-    //} // for
-
     for (int j = 0; j < GRID_H; j++) {
       for (int i = 0; i < GRID_W; i++) {
 
         dist = int( dist(pos.x, pos.y, grid.node[i][j]._pos.x, grid.node[i][j]._pos.y) );
         
         if (dist < size) {
-          grid.node[i][j]._col = color(255);
+          //grid.node[i][j]._col = color(255);
+          grid.node[i][j].paint_solid(color(255));
+          
+          
         } else {
           grid.node[i][j]._col = color(0);
         } // if

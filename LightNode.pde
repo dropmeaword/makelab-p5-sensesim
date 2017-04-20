@@ -43,13 +43,11 @@ class LightNode {
     }
   }
 
-
   //!!! For now I use the gradient type that i got from the Arduino code 
   //public void paint_gradient(color a, color b, GradientType type) {
   //    // something happens here that sends the test pattern command to the node (bothin the simulator and the hardware)
 
   //  }
-
 
   public void paint_gradient(color a, color b) {
     for (int i = 0; i < PIXEL_COUNT*3; i+=3) {
@@ -62,7 +60,6 @@ class LightNode {
       
     }
   }
-
 
 
   public void paint_pixels() {

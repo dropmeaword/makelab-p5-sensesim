@@ -103,6 +103,7 @@ void draw_gui() {
   grid.sense(track.x, track.y);
   grid.draw(view2d, xloc, yloc);
   Lgrid.draw(view2d, xloc+400, yloc);
+  
   view2d.endDraw();
 
   image(view2d, 0, 0);
