@@ -37,6 +37,7 @@ class LightGrid {
 
   public void setCurrentAnimation(Animation anim) {
     this.animation = anim;
+    this.animation.setParentGrid( this );
   }
 
   public void draw(PGraphics where, int xpos, int ypos) {

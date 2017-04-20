@@ -7,13 +7,13 @@ class LightNode {
 
   final public int PIXEL_COUNT = 36;
 
-  PVector _pos;
-  boolean _on; 
-  int _id;
+  public PVector _pos;
+  public boolean _on; 
+  public int _id;
 
-  color _col;
+  public color _col;
 
-  int []pix;
+  public int []pix;
 
   public float _radius;
   protected LightGrid _parent;

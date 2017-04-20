@@ -77,6 +77,8 @@ void setup() {
   cam.setMaximumDistance(1000);
 
   init_gui();
+  
+  Lgrid.setCurrentAnimation(new Rest(200, 2));
 }
 
 
@@ -128,11 +130,6 @@ void draw() {
   ////float cameraZ = cameraY / tan(fov / 2.0);
   ////float aspect = float(width)/float(height);
   ////perspective(fov, aspect, cameraZ/10.0, cameraZ*10.0);
-
-  pushMatrix();
-  translate(-10, -200);
-  //contour.draw(0.001f);
-  popMatrix();
 
   cam.beginHUD();
   draw_cp5_gui();
