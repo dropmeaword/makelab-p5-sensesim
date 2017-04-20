@@ -52,8 +52,9 @@ class LightGrid {
     //node[0][0].paint_gradient(color (255, 0, 0), color (0, 255, 250));
     //node[1][0].paint_gradient(color (255, 0, 0), color (0, 255, 250));
     //node[2][3].paint_gradient(color (0, 255, 0), color (0, 255, 100));
+
    
-   
+
     animation.update();
     animation.show();
 

@@ -52,7 +52,6 @@ class LightNode {
     for (int i = 0; i < PIXEL_COUNT*3; i+=3) {
       float inter = map(i, 0, PIXEL_COUNT*3, 0, 1);
       color c = lerpColor(a, b, inter);
-
       pix[i] = int(red(c));
       pix[i+1] = int(green(c));
       pix[i+2] = int(blue(c));
@@ -60,7 +59,7 @@ class LightNode {
   }
 
 
-  public void paint_pixels() {
+  public void paint_pixels(int []colors) {   // this thing takes an array of 36 integer
     // read the contents of pix[] and push them to the sim/hard node.
 
     //osc.send("/node/pixels", this.pix);
@@ -71,6 +70,13 @@ class LightNode {
     //  int g = this.pix[i+1];
     //  int b = this.pix[i+2];
     //}
+    
+    for (int i =0; i < PIXEL_COUNT*3; i +=3) {
+
+      pix[i] = colors[i];
+      pix[i+1] = colors[i+1];
+      pix[i+2] = colors[i+2];
+    }
   }
 
 
