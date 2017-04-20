@@ -33,8 +33,7 @@ class Rest extends Animation {
   void show() {
     fill(255, 0, 0);
     ellipse(pos.x, pos.y, size, size);
-    println(grid._step);
-
+    
     for (int j = 0; j < GRID_H; j++) {
       for (int i = 0; i < GRID_W; i++) {
         dist = int( dist(pos.x, pos.y,grid.node[i][j]._pos.x+grid._step/1.5, grid.node[i][j]._pos.y+grid._step/1.5) );
