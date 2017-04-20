@@ -1,5 +1,4 @@
 import controlP5.*;
-import ComputationalGeometry.*;
 import gab.opencv.*;
 import java.util.*;
 import peasy.*;
@@ -73,14 +72,13 @@ void setup() {
 
   view2d = createGraphics(800, 600, P3D);
 
-  contour = new Contour(this, grid);
-  contour.append( grid.getNodePositions() );
-
   cam = new PeasyCam(this, 400);
   cam.setMinimumDistance(50);
   cam.setMaximumDistance(1000);
 
   init_gui();
+  
+  Lgrid.setCurrentAnimation(new Rest(200, 2));
 }
 
 
@@ -116,7 +114,7 @@ void draw_gui() {
 }
 
 void update() {
-  contour.update( grid.getNodePositions(), grid.getNodeWeights() );
+  // was used to update the contour
 }
 
 void draw() {
@@ -132,11 +130,6 @@ void draw() {
   ////float cameraZ = cameraY / tan(fov / 2.0);
   ////float aspect = float(width)/float(height);
   ////perspective(fov, aspect, cameraZ/10.0, cameraZ*10.0);
-
-  pushMatrix();
-  translate(-10, -200);
-  //contour.draw(0.001f);
-  popMatrix();
 
   cam.beginHUD();
   draw_cp5_gui();
