@@ -56,7 +56,7 @@ class LightNode {
   }
 
 
-  public void paint_pixels(int []colors) {   // this thing takes an array of 36 integer
+  public void paint_pixels(int []colors) {   // this thing takes an array of 36*3 integers
     // read the contents of pix[] and push them to the sim/hard node.
 
     //osc.send("/node/pixels", this.pix);

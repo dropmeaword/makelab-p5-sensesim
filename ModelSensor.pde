@@ -47,6 +47,7 @@ class ModelSensor {
     if (_triggered) {
       where.noStroke();
       where.fill(255);
+
     } else {
       where.fill(0);
       where.ellipse(0, 0, 10, 10);
