@@ -8,10 +8,10 @@ class Pixel {
     _parent = parent;
     _position = position;
     _radius = radius;
-    
+    _c = color(0);
   }
   
-  
-  
-  
+  void setColor(color c) {
+    _c = c;
+  }
 }
