@@ -2,13 +2,14 @@ class Rest extends Animation {
 
   int size, movement, dist;
   PVector pos;
-  int startTime, delay = 1000;
+  int startTime, delay;
   PVector _bounds;
   int xOffset;
   color a, b;
 
-  Rest(int size, int movement, PVector bounds, int xOff) {
+  Rest(int size, int movement, int delay, PVector bounds, int xOff) {
     this.size = size;
+    this.delay = delay;
     this.movement = movement;
     _bounds = bounds;
     xOffset = xOff;
