@@ -7,17 +7,22 @@ class Lure extends Animation {
   color[] fade = {color(255, 0, 0), color(0, 0, 255)};
   float fadeAmt= 0;
 
-  Lure(int size, int movement) {
+  PVector _bounds;
+  int xOffset;
+
+  Lure(int size, int movement, PVector bounds, int xOff) {
     this.size = size;  
+    _bounds = bounds;
+    xOffset = xOff;
     this.movement = movement;
-    pos = new PVector(random(100, width-100), random(100, height-100));
+    pos = new PVector(random(20, bounds.x + xOff -20), random(20, bounds.y - 20));
     startTime = colorTime = millis();
   }
 
   void update() {
     if (millis() - startTime > delay) {
-      pos.x = random(100, width-100);
-      pos.y = random(100, height-100);
+      pos.x = random(_bounds.x+20, _bounds.x+xOffset-20);
+      pos.y = random(20, _bounds.y-20);
       startTime = millis();
     }
 
@@ -42,9 +47,9 @@ class Lure extends Animation {
       for (int i = 0; i < GRID_W; i++) {
         dist = int(dist(pos.x, pos.y, grid.node[i][j]._pos.x+grid._step/1.5, grid.node[i][j]._pos.y+grid._step/1.5));
         if (dist < size) {
-          grid.node[i][j]._col = color(current);
+          grid.node[i][j].paint_solid(color(current));
         } else {
-          grid.node[i][j]._col = color(0);
+          grid.node[i][j].paint_solid(color(0));
         }
       }
     }
