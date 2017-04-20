@@ -36,7 +36,7 @@ class ModelSensor {
 
     //background(0, 0, 0);
 
-    int halfr = int(1.0 * _radius / 2.0);
+    //int halfr = int(1.0 * _radius / 2.0);
 
     where.pushMatrix();
     where.translate(_pos.x, _pos.y);

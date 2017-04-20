@@ -11,7 +11,7 @@ class LightNode {
 
   public double weight() {
     return 0.0d;
-  }
+  } // i dont think i need this in the LightNode 
 
   public void setRadius(float rad) {
     this._radius = rad;
@@ -27,10 +27,7 @@ class LightNode {
     where.popMatrix();
   }
   
-  public void sleepMode(){
-  //Geometry.inCircle(_pos.x, _pos.y, _radius, tx, ty);
   
-
-  }
+  
   
 }

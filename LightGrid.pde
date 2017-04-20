@@ -22,7 +22,6 @@ class LightGrid {
     return new PVector((_width * _step ), (_height * _step), 100);
   }
   
-  
   public List<PVector> getNodePositions() {
     List<PVector> retval = new ArrayList<PVector>();
     for (int j = 0; j < GRID_H; j++) {
