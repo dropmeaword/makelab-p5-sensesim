@@ -2,6 +2,7 @@ class LightGrid {
   public int _width, _height;
   public LightNode [][]node;
   public int _step;
+  public PVector testValues; 
   int Xoffset = 400;
 
   public Animation animation;
@@ -19,6 +20,7 @@ class LightGrid {
         node[i][j] = new LightNode(this, pos, 30, id++); // i have to give the proper properties to this
       }
     }
+    testValues = new PVector();
   }
   public PVector bounds() {
     return new PVector((_width * _step ), (_height * _step), 100);
@@ -53,10 +55,12 @@ class LightGrid {
     //node[1][0].paint_gradient(color (255, 0, 0), color (0, 255, 250));
     //node[2][3].paint_gradient(color (0, 255, 0), color (0, 255, 100));
 
-   
-
     animation.update();
     animation.show();
+
+    //there has to be a way to trigger this testValues with the sensors
+
+    testValues(testValues);
 
     String ip ="127.0.0.1";
     int port = 6406;
@@ -73,4 +77,17 @@ class LightGrid {
 
     where.popMatrix();
   }//draw
+
+  public void testValues(PVector p) {
+
+    color a = color(255, 0, 0);
+    color b = color(0, 255, 100);
+
+
+    //Lgrid.node[int(p.x)][int(p.y)].paint_gradient(color(a), color(b));
+    Lgrid.node[int(p.x)][int(p.y)].paint_solid( color(b));
+    if (int(p.x) > 0) {
+      //Lgrid.node[int(p.x)-1][int(p.y)].paint_solid( color(a));
+    }
+  }
 }//LightGrid class

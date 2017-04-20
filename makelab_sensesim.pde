@@ -121,6 +121,7 @@ void draw_gui() {
     //println(person[0]._pos.x-xloc, person[0]._pos.y-yloc);
     //grid.sense(person[0]._pos.x-xloc, person[0]._pos.y-yloc);
   }
+  
 
   grid.draw(view2d, xloc, yloc);
   Lgrid.draw(view2d, xloc, yloc);
