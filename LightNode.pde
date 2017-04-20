@@ -69,7 +69,6 @@ class LightNode {
     //}
     
     for (int i =0; i < PIXEL_COUNT*3; i +=3) {
-
       pix[i] = colors[i];
       pix[i+1] = colors[i+1];
       pix[i+2] = colors[i+2];
@@ -98,7 +97,6 @@ class LightNode {
   }
 
   public void draw_basic_circle(PGraphics where) {
-
     where.pushMatrix();
     where.translate(_pos.x, _pos.y);
     where.noFill();
@@ -118,7 +116,6 @@ class LightNode {
   public void draw(PGraphics where) {
     //draw_basic_circle(where);
     draw_node_sim(where, _pos, _radius);
-
     //text(_id, _pos.x+50, _pos.y +50);
   }
 
