@@ -57,7 +57,6 @@ class LightNode {
       pix[i] = int(red(c));
       pix[i+1] = int(green(c));
       pix[i+2] = int(blue(c));
-      
     }
   }
 
@@ -118,6 +117,8 @@ class LightNode {
   public void draw(PGraphics where) {
     //draw_basic_circle(where);
     draw_node_sim(where, _pos, _radius);
+    
+    text(_id,_pos.x + 450,_pos.y +50);
   }
 
   int pulsingBallSize = 10;
@@ -136,5 +137,19 @@ class LightNode {
     } else if (pulsingBallGrowing == false) {
       pulsingBallSize -= 15;
     }
+  }
+
+
+  String toString() {
+    
+  String s = "";  
+    for (int i = 0; i < PIXEL_COUNT*3; i+=3) {
+      int r = pix[i];
+      int g = pix[i+1];
+      int b = pix[i+2];
+      s = s + r + "," + g + "," + b + " "; 
+    }
+
+    return s;
   }
 }

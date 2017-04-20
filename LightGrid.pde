@@ -48,24 +48,29 @@ class LightGrid {
     //with this you can turn on and of a solid color
     //node[0][0].paint_solid(color(255, 0, 0));
     //node[4][4].paint_solid(color(255, 0, 0));
-    
-    
-    //with this i tested the gradient colors
-    
-    node[0][0].paint_gradient(color (255,0,0), color (0,255,250));
-    node[1][0].paint_gradient(color (255,0,0), color (0,255,250));
-    node[2][3].paint_gradient(color (0,255,0), color (0,255,100));
-    node[0][6].paint_gradient(color (0,0,100), color (23,255,250));
-    node[3][0].paint_gradient(color (255,60,0), color (0,57,250));
-    node[0][4].paint_gradient(color (255,10,9), color (88,3,2));
-    
-    
 
+    //with this i tested the gradient colors
+
+    node[0][0].paint_gradient(color (255, 0, 0), color (0, 255, 250));
+    node[1][0].paint_gradient(color (255, 0, 0), color (0, 255, 250));
+    node[2][3].paint_gradient(color (0, 255, 0), color (0, 255, 100));
+    node[0][6].paint_gradient(color (0, 0, 100), color (23, 255, 250));
+    node[3][0].paint_gradient(color (255, 60, 0), color (0, 57, 250));
+    node[0][4].paint_gradient(color (255, 10, 9), color (88, 3, 2));
+
+    String ip ="127.0.0.1";
+    int port = 6406;
+    String message = "";
+    
     for (int j = 0; j < GRID_H; j++) {
       for (int i = 0; i < GRID_W; i++) {
         node[i][j].draw(where);
+        message = message + node[i][j].toString();
       }
     }
+    println(message);
+    udps.send(message,ip,port);
+    
     where.popMatrix();
   }//draw
 }//LightGrid class

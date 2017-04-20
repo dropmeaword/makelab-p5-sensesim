@@ -2,6 +2,8 @@ import controlP5.*;
 import gab.opencv.*;
 import java.util.*;
 import peasy.*;
+import hypermedia.net.*;
+UDP udps;
 
 ControlP5 cp5;
 PeasyCam cam;
@@ -77,8 +79,10 @@ void setup() {
   cam.setMaximumDistance(1000);
 
   init_gui();
-  
+
   Lgrid.setCurrentAnimation(new Rest(200, 2));
+
+  udps = new UDP( this, 6005 ); // this is the for the communication with Grasshopper
 }
 
 
@@ -110,8 +114,6 @@ void draw_gui() {
 
   cam.endHUD();
   hint(ENABLE_DEPTH_TEST);
-
-  
 }
 
 void update() {
