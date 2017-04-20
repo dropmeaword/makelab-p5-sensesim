@@ -119,6 +119,8 @@ class LightNode {
   public void draw(PGraphics where) {
     //draw_basic_circle(where);
     draw_node_sim(where, _pos, _radius);
+    
+    text(_id,_pos.x + 450,_pos.y +50);
   }
 
   int pulsingBallSize = 10;

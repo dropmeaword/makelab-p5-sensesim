@@ -68,7 +68,7 @@ class LightGrid {
         message = message + node[i][j].toString();
       }
     }
-    //println(message);
+    println(message);
     udps.send(message,ip,port);
     
     where.popMatrix();
