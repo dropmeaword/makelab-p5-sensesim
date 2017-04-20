@@ -48,7 +48,6 @@ class LightGrid {
     //node[0][0].paint_solid(color(255, 0, 0));
     //node[4][4].paint_solid(color(255, 0, 0));
     
-    
     //with this i tested the gradient colors
     
     node[0][0].paint_gradient(color (255,0,0), color (0,255,250));

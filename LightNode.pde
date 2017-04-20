@@ -10,9 +10,7 @@ class LightNode {
   PVector _pos;
   boolean _on; 
   int _id;
-
   color _col;
-
   int []pix;
 
   public float _radius;
@@ -43,7 +41,6 @@ class LightNode {
     }
   }
 
-
   //!!! For now I use the gradient type that i got from the Arduino code 
   //public void paint_gradient(color a, color b, GradientType type) {
   //    // something happens here that sends the test pattern command to the node (bothin the simulator and the hardware)
@@ -59,7 +56,6 @@ class LightNode {
       pix[i] = int(red(c));
       pix[i+1] = int(green(c));
       pix[i+2] = int(blue(c));
-      
     }
   }
 
@@ -139,5 +135,16 @@ class LightNode {
     } else if (pulsingBallGrowing == false) {
       pulsingBallSize -= 15;
     }
+  }
+
+
+  String toString() {
+    String s = "";
+
+    for (int i = 0; i < PIXEL_COUNT*3; i++) {
+            
+    }
+
+    return s;
   }
 }
