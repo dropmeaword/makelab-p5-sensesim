@@ -2,19 +2,27 @@ class Rest extends Animation {
 
   int size, movement, dist;
   PVector pos;
-  int startTime, delay = 10000;
+  int startTime, delay = 1000;
+  //print(grid.bounds());
 
-  Rest(int size, int movement) {
+  PVector _bounds;
+  int xOffset;
+
+
+  Rest(int size, int movement,PVector bounds,int xOff) {
     this.size = size;
     this.movement = movement;
-    pos = new PVector(width/2, height/2);
+    _bounds = bounds;
+    xOffset = xOff;
+    pos = new PVector(bounds.x/2+xOff, bounds.y/2);
     startTime = millis();
   }
 
   void update() {
+    
     if (millis() - startTime > delay) {
-      pos.x = random(100, width-100);
-      pos.y = random(100, height-100);
+      pos.x = random(_bounds.x+20, _bounds.x+xOffset-20);
+      pos.y = random(20, _bounds.y-20);
       startTime = millis();
     }
 
@@ -24,26 +32,19 @@ class Rest extends Animation {
 
   void show() {
     fill(255, 0, 0);
-    ellipseMode(CENTER);
     ellipse(pos.x, pos.y, size, size);
+    println(grid._step);
 
     for (int j = 0; j < GRID_H; j++) {
       for (int i = 0; i < GRID_W; i++) {
+        dist = int( dist(pos.x, pos.y,grid.node[i][j]._pos.x+grid._step/1.5, grid.node[i][j]._pos.y+grid._step/1.5) );
 
-        dist = int( dist(pos.x, pos.y, grid.node[i][j]._pos.x, grid.node[i][j]._pos.y) );
-        
         if (dist < size) {
-          //grid.node[i][j]._col = color(255);
           grid.node[i][j].paint_solid(color(255));
-          
-          
         } else {
-          grid.node[i][j]._col = color(0);
-        } // if
-        
+          grid.node[i][j].paint_solid(color(0));
+        } 
       }
     }
-
   } // show
-
 } // class
