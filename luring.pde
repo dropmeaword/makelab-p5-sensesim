@@ -1,4 +1,4 @@
-class Lure {
+class Lure extends Animation {
 
   int size, dist, movement;
   PVector pos;
@@ -28,7 +28,7 @@ class Lure {
       fade[0] = fade[1];
       fade[1] = color(random(255), random(255), random(255));
     }
-    
+
     pos.x += int(random(-movement, movement));
     pos.y += int(random(-movement, movement));
   }
@@ -38,12 +38,14 @@ class Lure {
     ellipseMode(CENTER);
     ellipse(pos.x, pos.y, size, size);
 
-    for (int i = 0; i < points.length; i++) {
-      dist = int(dist(pos.x, pos.y, points[i].x, points[i].y));
-      if (dist < size) {
-        points[i].c = color(current);
-      } else {
-        points[i].c = color(0);
+    for (int j = 0; j < GRID_H; j++) {
+      for (int i = 0; i < GRID_W; i++) {
+        dist = int(dist(pos.x, pos.y, grid.node[i][j]._pos.x+grid._step/1.5, grid.node[i][j]._pos.y+grid._step/1.5));
+        if (dist < size) {
+          grid.node[i][j]._col = color(current);
+        } else {
+          grid.node[i][j]._col = color(0);
+        }
       }
     }
   }
