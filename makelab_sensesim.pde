@@ -86,10 +86,10 @@ void setup() {
   init_gui();
 
   //Lgrid.setCurrentAnimation(new Rest(50, 5, 5000, Lgrid.bounds(), Lgrid.Xoffset));
-  //Lgrid.setCurrentAnimation(new Attack(100, Lgrid.bounds(), Lgrid.Xoffset));
-  //Lgrid.setCurrentAnimation(new Sleep(1000));
+  Lgrid.setCurrentAnimation(new Attack(100, Lgrid.bounds(), Lgrid.Xoffset));
+  //Lgrid.setCurrentAnimation(new Sleep(500));
   //Lgrid.setCurrentAnimation(new Lure(50, 2, 2000, Lgrid.bounds(), Lgrid.Xoffset));
-  Lgrid.setCurrentAnimation(new Dead());
+  //Lgrid.setCurrentAnimation(new Dead());
   //there should be an "animation" added where 
 
 
