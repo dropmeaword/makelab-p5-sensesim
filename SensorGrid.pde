@@ -64,7 +64,9 @@ class SensorGrid {
     where.translate(xpos, ypos);
     for (int j = 0; j < GRID_H; j++) {
       for (int i = 0; i < GRID_W; i++) {
+        grid[i][j].setSensitivity(sensitivity);
         grid[i][j].draw(where);
+         
       }
     }
     where.popMatrix();
