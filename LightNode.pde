@@ -10,9 +10,7 @@ class LightNode {
   public PVector _pos;
   public boolean _on; 
   public int _id;
-
-  public color _col;
-
+  
   public int []pix;
 
   public float _radius;
@@ -31,7 +29,6 @@ class LightNode {
   }
 
   public void paint_solid(color c) {
-    this._col = c;
     // something happens here that sends the test pattern command to the node (bothin the simulator and the hardware)
 
     //this is the code for the simulator
@@ -79,7 +76,6 @@ class LightNode {
     }
   }
 
-
   public double weight() {
     return 0.0d;
   } // i dont think i need this in the LightNode 
@@ -102,7 +98,7 @@ class LightNode {
   }
 
   public void draw_basic_circle(PGraphics where) {
-    pulsing();
+
     where.pushMatrix();
     where.translate(_pos.x, _pos.y);
     where.noFill();
@@ -126,26 +122,8 @@ class LightNode {
     //text(_id, _pos.x+50, _pos.y +50);
   }
 
-  int pulsingBallSize = 10;
-  boolean pulsingBallGrowing = true;
-  void pulsing() {
-    noStroke();
-    //ellipse(2, 2, pulsingBallSize, pulsingBallSize);
-    if (pulsingBallSize > 700 ) {
-      pulsingBallGrowing = false;
-    }
-    if (pulsingBallSize < 10) {
-      pulsingBallGrowing = true;
-    }
-    if (pulsingBallGrowing == true) {
-      pulsingBallSize += 15;
-    } else if (pulsingBallGrowing == false) {
-      pulsingBallSize -= 15;
-    }
-  }
-
   String toString() {
-    //This is where i make a String that we can send to Grasshopper. I dont know if we also can send this to the arduinos
+    //This is where i make a String that we can send to Grasshopper. I dont know if we also can send this to the arduinos. EDIT: it is better to send ints to the arduinos
     //the format of the string is r,g,b r,g,b r,g,b 
     String s = "";  
     for (int i = 0; i < PIXEL_COUNT*3; i+=3) {
@@ -154,7 +132,6 @@ class LightNode {
       int b = pix[i+2];
       s = s + r + "," + g + "," + b + " ";
     }
-
     return s;
   }
 }
