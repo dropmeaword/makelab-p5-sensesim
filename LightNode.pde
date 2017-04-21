@@ -4,16 +4,18 @@
     final public int LINEAR = 0;
     final public int SINUS = 0;
   };
-  
+
   final public int PIXEL_COUNT = 36;
   public PVector _pos;
-  public boolean _on; 
+  public boolean _on;
   public int _id;
   public int []pix;
   public float _radius;
   protected LightGrid _parent;
   public boolean _updated = false;
-  
+
+  public NetAddress ipaddress;
+
 
   public LightNode(LightGrid parent, PVector position, int radius, int id) {
     _pos = position;
@@ -22,6 +24,7 @@
     _id = id;
     pix = new int[PIXEL_COUNT*3];
   }
+
   public void testpattern() {
     // something happens here that sends the test pattern command to the node (bothin the simulator and the hardware)
   }
@@ -36,7 +39,7 @@
     }
   }
 
-  //!!! For now I use the gradient type that i got from the Arduino code 
+  //!!! For now I use the gradient type that i got from the Arduino code
   //public void paint_gradient(color a, color b, GradientType type) {
   //    // something happens here that sends the test pattern command to the node (bothin the simulator and the hardware)
 
@@ -64,7 +67,7 @@
     //  int g = this.pix[i+1];
     //  int b = this.pix[i+2];
     //}
-    
+
     for (int i =0; i < PIXEL_COUNT*3; i +=3) {
       pix[i] = colors[i];
       pix[i+1] = colors[i+1];
@@ -74,7 +77,7 @@
 
   public double weight() {
     return 0.0d;
-  } // i dont think i need this in the LightNode 
+  } // i dont think i need this in the LightNode
 
   void draw_node_sim(PGraphics where, PVector c, float r) {
     PVector pos = new PVector();
@@ -91,8 +94,8 @@
       //println(color(pix[i]));
       where.ellipse(pos.x, pos.y, 4, 4);
     }
-    
-    
+
+
   }
 
   public void draw_basic_circle(PGraphics where) {
@@ -120,8 +123,8 @@
 
   String toString() {
     //This is where i make a String that we can send to Grasshopper. I dont know if we also can send this to the arduinos. EDIT: it is better to send ints to the arduinos
-    //the format of the string is r,g,b r,g,b r,g,b 
-    String s = "";  
+    //the format of the string is r,g,b r,g,b r,g,b
+    String s = "";
     for (int i = 0; i < PIXEL_COUNT*3; i+=3) {
       int r = pix[i];
       int g = pix[i+1];

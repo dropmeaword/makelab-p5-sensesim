@@ -2,7 +2,7 @@ class LightGrid {
   public int _width, _height;
   public LightNode [][]node;
   public int _step;
-  public PVector testValues; 
+  public PVector testValues;
   int Xoffset = 400;
 
   public Animation animation;
@@ -13,7 +13,7 @@ class LightGrid {
     _step = 60;
     node = new LightNode[_width][_height];
 
-    int id = 0 ; 
+    int id = 0 ;
     for (int j =0; j < GRID_H; j++) {
       for (int i =0; i < GRID_W; i++) {
         PVector pos = new PVector((i*_step)+Xoffset, (j*_step));
@@ -32,7 +32,7 @@ class LightGrid {
       for (int i = 0; i < GRID_W; i++) {
         retval.add( node[i][j]._pos );
       }
-    }  
+    }
     return retval;
   }
 
@@ -69,11 +69,11 @@ class LightGrid {
         message = message + node[i][j].toString();
       }
     }
-    
-    
-    
+
+
+
     //println(message);
-    udps.send(message, ip, port);
+    // udps.send(message, ip, port);
 
     where.popMatrix();
   }//draw
