@@ -24,6 +24,7 @@ final static int GRID_W = 6;
 SensorGrid grid;
 LightGrid Lgrid;
 Behaviour behave; 
+Control communication;
 
 PGraphics view2d;
 
@@ -97,6 +98,7 @@ void setup() {
   grid = new SensorGrid(GRID_W, GRID_H);
   Lgrid = new LightGrid(GRID_W, GRID_H);
   behave = new Behaviour();
+  communication = new Control();
 
   track = new PVector(0, 0, 0);
   person = new Person[5];
@@ -180,6 +182,9 @@ void draw_gui() {
 
   grid.draw(view2d, xloc, yloc);
   Lgrid.draw(view2d, xloc, yloc);
+  
+  
+  
 
   view2d.endDraw();
 

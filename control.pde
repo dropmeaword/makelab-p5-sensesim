@@ -42,14 +42,14 @@ class Control {
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
         if (i == nodepos.x && j == nodepos.y) {
-          //destination = nodes[i][j];
+          destination = nodes[i][j];
           println(nodepos.y * rows + nodepos.x + 100);
-          //println(destination);
-          //println("----------------------");
+          println(destination);
+          println("----------------------");
         }
       }
     }
-    //println(destination);
+    println(destination);
 
     OscMessage outmsg = new OscMessage(parts[0]);
 
