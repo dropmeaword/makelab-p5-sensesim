@@ -1,56 +1,34 @@
-class Control {
+public NetAddress[][] nodes;
 
-  int rows = 6; 
-  int cols = 8;
-
-  NetAddress [][]nodes;
-
-  OscP5 oscP5;
-  NetAddress destination;
-
-
-  Control() {
-    oscP5 = new OscP5(this, 2048);
-
-    nodes = new NetAddress[rows][cols];
-    for (int i = 0; i < rows; i++) {
-      for (int j = 0; j < cols; j++) {
-        String address = "192.168.8." + (j * rows + i + 100);
-        nodes[i][j] = new NetAddress(address, 54321);
-      }
+void init_networking(int rows, int cols) {
+  // create the map between node col,row positions and IP addresses
+  nodes = new NetAddress[rows][cols];
+  for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < cols; j++) {
+      String address = "192.168.8." + (j * rows + i + 100);
+      nodes[i][j] = new NetAddress(address, OSC_OUT_HARDWARE);
     }
   }
+}
 
-  void update() {
-  }
+public NetAddress get_ip_from_grid(int row, int col) {
+  if( nodes != null) { return nodes[row][col]; } else { return null; }
+}
 
-  void oscEvent(OscMessage inmsg) {
-
-    String payload = inmsg.get(0).stringValue(); 
+void handle_firefly_message(OscMessage inmsg) {
+    String payload = inmsg.get(0).stringValue();
     String[] parts = payload.split(" ");
 
-
-    PVector nodepos = new PVector();
+    int gridx = 0, gridy = 0;
     String[] locs = parts[1].split(",");
     for (int i = 0; i < locs.length; i++) {
-      nodepos.x = int(locs[0]);
-      nodepos.y = int(locs[1]);
+      gridx = int(locs[0]);
+      gridy = int(locs[1]);
     }
 
-    println(nodepos);
+    println("received FF message for node " + gridx + ", " + gridy);
 
-    for (int i = 0; i < rows; i++) {
-      for (int j = 0; j < cols; j++) {
-        if (i == nodepos.x && j == nodepos.y) {
-          destination = nodes[i][j];
-          println(nodepos.y * rows + nodepos.x + 100);
-          println(destination);
-          println("----------------------");
-        }
-      }
-    }
-    println(destination);
-
+    // build a new message from faulty firefly shizzle to forward to node
     OscMessage outmsg = new OscMessage(parts[0]);
 
     String[] colors = parts[2].split(",");
@@ -59,12 +37,35 @@ class Control {
       outmsg.add(colVal);
     }
 
-    forward_to_node(outmsg);
-  }
-
-  void forward_to_node(OscMessage outmsg) {
-    oscP5.send(outmsg, destination);
-  }
-  
-  
+    // calculate IP addres of my node given position in grid
+    NetAddress dest = get_ip_from_grid(gridx, gridy);
+    forward_to_node(outmsg, dest);
 }
+
+void forward_to_node(OscMessage outmsg, NetAddress dest) {
+  println("forwarding message from FF >> " + outmsg + " to destination " + dest);
+  oscin.send(outmsg, dest);
+}
+
+void handle_node_heartbeat(OscMessage inmsg) {
+
+}
+
+void handle_node_sensor_data(OscMessage inmsg) {
+}
+
+void handle_hardware_message(OscMessage inmsg) {
+  if(inmsg.checkAddrPattern("/node/ack") == true) {
+    handle_node_heartbeat( inmsg );
+  } else if (inmsg.checkAddrPattern("/node/sensor") == true) {
+    handle_node_sensor_data( inmsg );
+  }
+}
+
+void oscEvent(OscMessage inmsg) {
+  if(inmsg.checkAddrPattern("/0/Panel") == true) {
+    handle_firefly_message( inmsg );
+  } else {
+    handle_hardware_message( inmsg );
+  }
+} // global OSC input handler

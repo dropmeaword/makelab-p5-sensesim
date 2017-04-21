@@ -2,29 +2,35 @@ import controlP5.*;
 import gab.opencv.*;
 import java.util.*;
 import peasy.*;
-import hypermedia.net.*;
+// import hypermedia.net.*;
 
 import oscP5.*;
 import netP5.*;
 
-UDP udps;
+// UDP udps;
+
+OscP5 ffosc; // incoming OSC for Firefly/Grasshopper
+OscP5 oscin; // incoming OSC from the hardware nodes
+
 
 ControlP5 cp5;
 PeasyCam cam;
 PMatrix3D currCameraMatrix;
-PGraphics3D g3; 
+PGraphics3D g3;
 
 int threshold = 100;
 int detail = 100;
 int sensitivity = 30;
 
-final static int GRID_H = 8;
-final static int GRID_W = 6;
-
 SensorGrid grid;
 LightGrid Lgrid;
+<<<<<<< HEAD
 
 Control communication;
+=======
+Behaviour behave;
+// Control communication;
+>>>>>>> origin/master
 
 PGraphics view2d;
 
@@ -41,18 +47,18 @@ String[] ary = pathData.split(" ");
 String[] ary2= pathData2.split(" ");
 ArrayList<PVector> positions = new ArrayList<PVector>();
 
-//String 
+void init_osc()
+{
+  println("Listening for Firefly data on port " + OSC_IN_FIREFLY);
+  ffosc = new OscP5(this, OSC_IN_FIREFLY);
+  println("Listening for node data " + OSC_IN_HARDWARE);
+  oscin = new OscP5(this, OSC_IN_HARDWARE);
+}
+
 void init_gui() {
   cp5 = new ControlP5(this);
 
   cursor = new PVector(100, 100);
-
-  //Group g1 = cp5.addGroup("g1")
-  //              .setPosition(cursor.x, cursor.y)
-  //              .setBackgroundHeight(100)
-  //              .setBackgroundColor(color(255,50))
-  //              ;
-
 
   cursor.y = 500;
   cursor.x = 40;
@@ -80,7 +86,7 @@ void init_gui() {
   cp5.setAutoDraw(false);
 }
 
-void setup() {
+void load_sample_paths() {
   path = new PVector[ary.length];
   path2 = new PVector[ary.length];
 
@@ -92,13 +98,22 @@ void setup() {
     String[] pos = ary2[i].split(",");
     path2[i] = new PVector(Integer.parseInt(pos[0]), Integer.parseInt(pos[1]));
   }
+}
 
+void setup() {
   size(1024, 600, P3D);
   g3 = (PGraphics3D)g;
   grid = new SensorGrid(GRID_W, GRID_H);
   Lgrid = new LightGrid(GRID_W, GRID_H);
 
-  communication = new Control();
+  behave = new Behaviour();
+
+  load_sample_paths();
+
+  init_osc();
+  init_networking(GRID_W, GRID_H);
+
+  //communication = new Control();
 
   track = new PVector(0, 0, 0);
   person = new Person[5];
@@ -115,7 +130,7 @@ void setup() {
   init_gui();
 
 
-  //with this i test the different animations made by Thomas 
+  //with this i test the different animations made by Thomas
   //Lgrid.setCurrentAnimation(new Rest(50, 5, 5000, Lgrid.bounds(), Lgrid.Xoffset));
   //Lgrid.setCurrentAnimation(new Attack(100, Lgrid.bounds(), Lgrid.Xoffset));
   //Lgrid.setCurrentAnimation(new Sleep(500));
@@ -123,9 +138,9 @@ void setup() {
   Lgrid.setCurrentAnimation(new Dead());
   Lgrid.setCurrentBehaviour(new FieldBehaviour());
   //Lgrid.setCurrentAnimation(new Heatmap());
-  //there should be an "animation" added where 
+  //there should be an "animation" added where
 
-  udps = new UDP( this, 6005 ); // this is the for the communication with Grasshopper
+  // udps = new UDP( this, 6005 ); // this is the for the communication with Grasshopper
 }
 
 void draw_cp5_gui() {
@@ -151,7 +166,7 @@ void draw_gui() {
 
   grid.sense(track.x, track.y); //for this i should use
 
-  // with this I create a path 
+  // with this I create a path
   if (millis() > time + 500) {
     time = millis();
     if (stepIndex == ary.length-1) {
