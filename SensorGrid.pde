@@ -4,11 +4,13 @@ class SensorGrid {
   public ModelSensor [][]grid;
   public int _step;
   public int _avgTriggers;
+  public boolean [][]activatedSensors;
 
   public SensorGrid(int w, int h) {
     _width = w;
     _height = h;
     _step = 60;
+    activatedSensors = new boolean[w][h];
 
     grid = new ModelSensor[_width][_height]; //new ArrayList<PVector>(400);
     for (int j = 0; j < GRID_H; j++) {
@@ -28,7 +30,7 @@ class SensorGrid {
     _avgTriggers = 0;
     for (int j = 0; j < GRID_H; j++) {
       for (int i = 0; i < GRID_W; i++) {
-        grid[i][j].sense(xpos, ypos);
+        //grid[i][j].sense(xpos, ypos);
         _avgTriggers += grid[i][j]._triggerCount;
       }
     }
@@ -65,6 +67,10 @@ class SensorGrid {
       for (int i = 0; i < GRID_W; i++) {
         grid[i][j].setSensitivity(sensitivity);
         if (grid[i][j]._triggered) {
+          //activatedSensors[i][j]
+          
+          
+          
           PVector testVal = new PVector(i, j);
           Lgrid.testValues = testVal;
         }
