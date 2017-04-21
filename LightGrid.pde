@@ -52,6 +52,8 @@ class LightGrid {
     //there has to be a way to trigger this testValues with the sensors
 
     testValues(testValues);
+    behave.update();
+
 
     String ip ="127.0.0.1";
     int port = 6406;
@@ -61,8 +63,8 @@ class LightGrid {
       for (int i = 0; i < GRID_W; i++) {
         //println(grid.grid[i][j]._triggerCount + " nee " );
         //println(node[i][j]._pos);
-        textSize(40);
-        text(int(grid.grid[i][j]._triggerCount), node[i][j]._pos.x+40, node[i][j]._pos.y+40);
+        //textSize(40);
+        //text(int(grid.grid[i][j]._triggerCount), node[i][j]._pos.x+40, node[i][j]._pos.y+40);
 
         node[i][j].draw(where);
         message = message + node[i][j].toString();
@@ -81,7 +83,7 @@ class LightGrid {
 
     //Lgrid.node[int(p.x)][int(p.y)].paint_gradient(color(a), color(b));
 
-    Lgrid.node[int(p.x)][int(p.y)].paint_solid( color(b));
+    //Lgrid.node[int(p.x)][int(p.y)].paint_solid( color(b));
 
 
 
