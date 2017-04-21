@@ -6,7 +6,7 @@ class LightGrid {
   int Xoffset = 400;
 
   public Animation animation;
-  public Behaviour behave; 
+  public Behaviour behave;
 
   public LightGrid(int w, int h) {
     _width = w;
@@ -18,9 +18,15 @@ class LightGrid {
     for (int j =0; j < GRID_H; j++) {
       for (int i =0; i < GRID_W; i++) {
         PVector pos = new PVector((i*_step)+Xoffset, (j*_step));
-        node[i][j] = new LightNode(this, pos, 30, id++); // i have to give the proper properties to this
+        node[i][j] = new LightNode(this, pos, 30, id++);
+
+        // now that we have created the node we get the IP address
+        // based on its row,col position in the grid
+        NetAddress ip = grid_pos_to_ipaddress(i, j);
+        node[i][j].setNetworkAddress( ip );
       }
     }
+
     testValues = new PVector();
   }
   public PVector bounds() {
@@ -58,7 +64,7 @@ class LightGrid {
     //there has to be a way to trigger this testValues with the sensors
 
     testValues(testValues);
-    
+
     behave.update(); // this is where i trigger the BAHAVE class
 
     for (int j = 0; j < GRID_H; j++) {
