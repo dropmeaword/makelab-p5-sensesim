@@ -5,8 +5,8 @@ class ModelSensor {
   public float _radius; // radius of the area sensed
   public long _lastDetected; 
   public boolean _triggered;
-
   public long _triggerCount;
+  public boolean _alive;
 
   protected SensorGrid _parent;
 
@@ -17,6 +17,7 @@ class ModelSensor {
     _lastDetected = -1;
     _triggered = false;
     _triggerCount = 0;
+    _alive = false;
   }
 
   public double weight() {
@@ -39,7 +40,13 @@ class ModelSensor {
     where.pushMatrix();
     where.translate(_pos.x, _pos.y);
     where.noFill();
-    where.stroke(0, 255, 0);
+    if ( _alive) {
+      where.stroke(0, 255, 0);
+    }
+     else {
+      where.stroke(255, 0, 0);
+    }
+
     where.strokeWeight(1);
     //rect(-halfr, -halfr, _radius, _radius);
     where.ellipse(0, 0, _radius*2, _radius*2);
@@ -47,7 +54,6 @@ class ModelSensor {
     if (_triggered) {
       where.noStroke();
       where.fill(255);
-
     } else {
       where.fill(0);
       where.ellipse(0, 0, 10, 10);
@@ -80,5 +86,4 @@ class ModelSensor {
   //    }
   //  return retval;
   //} // sense()
-
 } // class
