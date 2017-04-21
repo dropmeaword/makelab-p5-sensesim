@@ -30,10 +30,11 @@ class Behaviour {
   public int [][]totalCountPerTrigger;
   public  int activeTriggerCounter;
 
+  boolean on = false;
   ModelSensor [][]lastTriggered;
   ModelSensor [][]prevTriggered;
-  //PVector lastTriggered;
 
+  //PVector lastTriggered;
 
   //I want to have something that gives me the last triggered sencor. But this can be multiple sensors.. 
   //I also want to have al little history on the seosores that have been triggered in the past so the behaviour can react to that
@@ -53,6 +54,9 @@ class Behaviour {
         if (grid.grid[i][j]._triggered) {
           triggerCount++;
           //lastTriggered = grid.grid[i][j];
+          Lgrid.node[i][j].paint_gradient(color(255, 0, 0), color(0, 255, 0));
+        } else {
+          //Lgrid.node[i][j].paint_gradient(color(255, 0, 255), color(0, 255, 0));
         }
       }
     }
