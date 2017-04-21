@@ -25,18 +25,32 @@
     pix = new int[PIXEL_COUNT*3];
   }
 
-  public void testpattern() {
-    // something happens here that sends the test pattern command to the node (bothin the simulator and the hardware)
+  public void setNetworkAddress(NetAddress address) {
+    this.ipaddress = address;
   }
-  public void paint_solid(color c) {
-    // something happens here that sends the test pattern command to the node (bothin the simulator and the hardware)
 
+  public void testpattern() {
+    OscMessage out = new OscMessage("/node/testpattern");
+    oscin.send(out, ipaddress);
+  }
+
+  public void osc_dispatch_solid(color c) {
+    OscMessage out = new OscMessage("/node/solid");
+    out.add( red(c) );
+    out.add( green(c) );
+    out.add( blue(c) );
+    oscin.send(out, ipaddress);
+  }
+
+  public void paint_solid() {
     //this is the code for the simulator
     for (int i = 0; i < PIXEL_COUNT *3; i+=3) {
       pix[i] = int(red(c));
       pix[i+1] = int(green(c));
       pix[i+2] = int(blue(c));
     }
+
+    osc_dispatch_solid(c);
   }
 
   //!!! For now I use the gradient type that i got from the Arduino code
@@ -45,7 +59,21 @@
 
   //  }
 
+  public void osc_dispatch_gradient(color a, color b) {
+    OscMessage out = new OscMessage("/node/gradient");
+    // add gradient endpoints RGB
+    out.add( red(a) );
+    out.add( greeb(a) );
+    out.add( blue(a) );
+    out.add( red(b) );
+    out.add( greeb(b) );
+    out.add( blue(b) );
+
+    oscin.send(out, ipaddress);
+  }
+
   public void paint_gradient(color a, color b) {
+    // draw on sim
     for (int i = 0; i < PIXEL_COUNT*3; i+=3) {
       float inter = map(i, 0, PIXEL_COUNT*3, 0, 1);
       color c = lerpColor(a, b, inter);
@@ -53,6 +81,9 @@
       pix[i+1] = int(green(c));
       pix[i+2] = int(blue(c));
     }
+
+    // dispatch to network
+    osc_dispatch_gradient(a, b);
   }
 
 
