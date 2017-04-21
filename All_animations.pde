@@ -85,7 +85,7 @@ class Rest extends Animation {
     pos.y += int(random(-movement, movement));
   }
   void show() {
-    fill(255, 0, 0);
+    //fill(255, 0, 0);
     //ellipse(pos.x, pos.y, size, size);
 
     for (int j = 0; j < GRID_H; j++) {
@@ -93,8 +93,6 @@ class Rest extends Animation {
         dist = int( dist(pos.x, pos.y, gridAnimation.node[i][j]._pos.x+gridAnimation._step/1.5, gridAnimation.node[i][j]._pos.y+gridAnimation._step/1.5) );
 
         if (dist < size) {
-          //grid.node[i][j].paint_solid(color(255));
-          //grid.node[i][j].paint_gradient(color(255, 0, 0), color(0, 0, 255));
           gridAnimation.node[i][j].paint_gradient(a, b);
         } else {
           gridAnimation.node[i][j].paint_solid(color(0));
@@ -147,8 +145,8 @@ class Lure extends Animation {
   }
 
   void show() {
-    fill(255, 0, 0);
-    ellipseMode(CENTER);
+    //fill(255, 0, 0);
+    //ellipseMode(CENTER);
     //ellipse(pos.x, pos.y, size, size);
 
     for (int j = 0; j < GRID_H; j++) {
@@ -201,8 +199,8 @@ class Attack extends Animation {
   }
 
   void show() {
-    fill(255, 0, 0);
-    ellipse(pos.x, pos.y, size*2, size*2);
+    //fill(255, 0, 0);
+    //ellipse(pos.x, pos.y, size*2, size*2);
 
     for (int j = 0; j < GRID_H; j++) {
       for (int i = 0; i < GRID_W; i++) {
