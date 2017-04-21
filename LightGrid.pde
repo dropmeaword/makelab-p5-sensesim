@@ -83,7 +83,6 @@ class LightGrid {
     color a = color(255, 0, 0);
     color b = color(0, 255, 100);
 
-
     //Lgrid.node[int(p.x)][int(p.y)].paint_gradient(color(a), color(b));
     Lgrid.node[int(p.x)][int(p.y)].paint_solid( color(b));
     if (int(p.x) > 0) {

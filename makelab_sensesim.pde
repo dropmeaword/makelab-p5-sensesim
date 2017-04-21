@@ -26,7 +26,14 @@ PVector track;
 PVector cursor;
 Contour contour;
 Person []person;
+PVector []path;
 
+String pathData =  "4,0 3,0 2,0 2,1 3,1 3,2 3,2 4,3 4,4 4,4 4,5 4,5 4,6 4,6 4,7 4,7 3,7 3,7 2,7 1,7 0,7 4,0 3,0 2,0 2,1 3,1 3,2 3,2 4,3 4,4 4,4 4,5 4,5 4,6 4,6 4,7 4,7 3,7 3,7 2,7 1,7 0,7 4,0 3,0 2,0 2,1 3,1 3,2 3,2 4,3 4,4 4,4 4,5 4,5 4,6 4,6 4,7 4,7 3,7 3,7 2,7 1,7 0,7 4,0 3,0 2,0 2,1 3,1 3,2 3,2 4,3 4,4 4,4 4,5 4,5 4,6 4,6 4,7 4,7 3,7 3,7 2,7 1,7 0,7 4,0 3,0 2,0 2,1 3,1 3,2 3,2 4,3 4,4 4,4 4,5 4,5 4,6 4,6 4,7 4,7";
+String[] ary = pathData.split(" ");
+
+ArrayList<PVector> positions = new ArrayList<PVector>();
+
+//String 
 void init_gui() {
   cp5 = new ControlP5(this);
 
@@ -66,6 +73,13 @@ void init_gui() {
 }
 
 void setup() {
+  path = new PVector[ary.length];
+  //print(path);
+  for (int i =0; i < ary.length; i++) {
+    String[] pos = ary[i].split(",");
+    path[i] = new PVector(Integer.parseInt(pos[0]), Integer.parseInt(pos[1]));
+  }
+
   size(1024, 600, P3D);
   g3 = (PGraphics3D)g;
   grid = new SensorGrid(GRID_W, GRID_H);
@@ -85,11 +99,11 @@ void setup() {
 
   init_gui();
 
-  //Lgrid.setCurrentAnimation(new Rest(50, 5, 5000, Lgrid.bounds(), Lgrid.Xoffset));
-  //Lgrid.setCurrentAnimation(new Attack(100, Lgrid.bounds(), Lgrid.Xoffset));
+  Lgrid.setCurrentAnimation(new Rest(50, 5, 5000, Lgrid.bounds(), Lgrid.Xoffset));
+  //Lgrid.setCurrentAnimation(new Attack(1, Lgrid.bounds(), Lgrid.Xoffset));
   //Lgrid.setCurrentAnimation(new Sleep(1000));
   //Lgrid.setCurrentAnimation(new Lure(50, 2, 2000, Lgrid.bounds(), Lgrid.Xoffset));
-  Lgrid.setCurrentAnimation(new Dead());
+  //Lgrid.setCurrentAnimation(new Dead());
   //there should be an "animation" added where 
 
 
@@ -103,6 +117,8 @@ void draw_cp5_gui() {
   g3.camera = currCameraMatrix;
 }
 
+int time = millis();
+int stepIndex = 0; 
 void draw_gui() {
   hint(DISABLE_DEPTH_TEST);
   cam.beginHUD();
@@ -114,15 +130,18 @@ void draw_gui() {
   track.x = mouseX - xloc;
   track.y = mouseY - yloc;
 
-  grid.sense(track.x, track.y);
-  for (int i = 0; i < person.length; i++) {
-    //fill(255, 255, 0);
-    ellipse(person[i]._pos.x, person[i]._pos.y, 20, 20);
-    //println(person[0]._pos.x-xloc, person[0]._pos.y-yloc);
-    //grid.sense(person[0]._pos.x-xloc, person[0]._pos.y-yloc);
-  }
-  
+  grid.sense(track.x, track.y); //for this i should use
 
+  if (millis() > time + 200) {
+    time = millis();
+    if(stepIndex == 99){
+    stepIndex= 0;
+    }
+    stepIndex++;
+  }
+
+  //grid.grid[int(path[stepIndex].x)][int(path[stepIndex].y)]._triggered = true; 
+  
   grid.draw(view2d, xloc, yloc);
   Lgrid.draw(view2d, xloc, yloc);
 
@@ -158,8 +177,6 @@ void draw() {
 
   draw_gui();
 }
-
-
 
 void mousePressed() {
   if (mouseButton == LEFT) {
