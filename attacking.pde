@@ -35,7 +35,7 @@ class Attack extends Animation {
 
   void show() {
     fill(255, 0, 0);
-    //ellipse(pos.x, pos.y, size*2, size*2);
+    ellipse(pos.x, pos.y, size*2, size*2);
 
     for (int j = 0; j < GRID_H; j++) {
       for (int i = 0; i < GRID_W; i++) {
