@@ -117,7 +117,7 @@ void draw_gui() {
   grid.sense(track.x, track.y);
   for (int i = 0; i < person.length; i++) {
     //fill(255, 255, 0);
-    ellipse(person[i]._pos.x, person[i]._pos.y, 20, 20);
+    ellipse(person[i].pos.x, person[i].pos.y, 20, 20);
     //println(person[0]._pos.x-xloc, person[0]._pos.y-yloc);
     //grid.sense(person[0]._pos.x-xloc, person[0]._pos.y-yloc);
   }
@@ -165,6 +165,6 @@ void mousePressed() {
   if (mouseButton == LEFT) {
   } else if (mouseButton == RIGHT) {
     PVector pos = new PVector(mouseX, mouseY, 0);
-    person[0]._pos = pos;
+    person[0].pos = pos;
   }
 }

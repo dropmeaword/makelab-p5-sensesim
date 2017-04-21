@@ -1,23 +1,23 @@
-//class Person {
+class Person {
 
-//  PVector pos;
-//  PVector[] locs;
+  PVector pos;
+  PVector[] locs;
 
-//  Person() {  
-//    pos = new PVector();
-//    locs = new PVector[2]; // create the array that holds the vectors
-//    // create the vectors
-//    for (int i = 0; i < 2; i++) {
-//      locs[i] = new PVector();
-//    }
-//  }
+  Person(PVector pos) {  
+    this.pos = pos;
+    locs = new PVector[2]; // create the array that holds the vectors
+    // create the vectors
+    for (int i = 0; i < 2; i++) {
+      locs[i] = new PVector();
+    }
+  }
 
-//  void update() {
+  void update() {
 //    pos.x = mouseX;
 //    pos.y = mouseY;
-//  }
+  }
 
-//  void show() {
+  void show() {
     
 //    fill(255, 0, 0);
 //    ellipse(pos.x, pos.y, 30, 30);
@@ -37,5 +37,5 @@
 //        points[i].c = color(255);
 //      }
 //    }
-//  }
-//}
+  }
+}
