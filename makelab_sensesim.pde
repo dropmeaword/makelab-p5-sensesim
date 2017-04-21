@@ -3,6 +3,10 @@ import gab.opencv.*;
 import java.util.*;
 import peasy.*;
 import hypermedia.net.*;
+
+import oscP5.*;
+import netP5.*;
+
 UDP udps;
 
 ControlP5 cp5;
