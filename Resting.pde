@@ -35,14 +35,14 @@ class Rest extends Animation {
 
     for (int j = 0; j < GRID_H; j++) {
       for (int i = 0; i < GRID_W; i++) {
-        dist = int( dist(pos.x, pos.y, grid.node[i][j]._pos.x+grid._step/1.5, grid.node[i][j]._pos.y+grid._step/1.5) );
+        dist = int( dist(pos.x, pos.y, gridAnimation.node[i][j]._pos.x+gridAnimation._step/1.5, gridAnimation.node[i][j]._pos.y+gridAnimation._step/1.5) );
 
         if (dist < size) {
           //grid.node[i][j].paint_solid(color(255));
           //grid.node[i][j].paint_gradient(color(255, 0, 0), color(0, 0, 255));
-          grid.node[i][j].paint_gradient(a,b);          
+          gridAnimation.node[i][j].paint_gradient(a,b);          
         } else {
-          grid.node[i][j].paint_solid(color(0));
+          gridAnimation.node[i][j].paint_solid(color(0));
         }
       }
     }

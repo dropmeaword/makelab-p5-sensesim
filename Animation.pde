@@ -1,9 +1,9 @@
 public class Animation {
 
-  public LightGrid grid;
+  public LightGrid gridAnimation;
 
   public void setParentGrid(LightGrid lg) {
-    this.grid = lg;
+    this.gridAnimation = lg;
   }
 
   public void update() {

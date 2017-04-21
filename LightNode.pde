@@ -94,6 +94,8 @@
       //println(color(pix[i]));
       where.ellipse(pos.x, pos.y, 4, 4);
     }
+    
+    
   }
 
   public void draw_basic_circle(PGraphics where) {

@@ -92,7 +92,6 @@ void setup() {
   }
 
   view2d = createGraphics(800, 600, P3D);
-
   cam = new PeasyCam(this, 400);
   cam.setMinimumDistance(50);
   cam.setMaximumDistance(1000);
@@ -100,11 +99,13 @@ void setup() {
   init_gui();
 
 
+  //with this i test the different animations made by Thomas 
   //Lgrid.setCurrentAnimation(new Rest(50, 5, 5000, Lgrid.bounds(), Lgrid.Xoffset));
   //Lgrid.setCurrentAnimation(new Attack(100, Lgrid.bounds(), Lgrid.Xoffset));
   //Lgrid.setCurrentAnimation(new Sleep(500));
   //Lgrid.setCurrentAnimation(new Lure(50, 2, 2000, Lgrid.bounds(), Lgrid.Xoffset));
-  Lgrid.setCurrentAnimation(new Dead());
+  //Lgrid.setCurrentAnimation(new Dead());
+  Lgrid.setCurrentAnimation(new Heatmap());
   //there should be an "animation" added where 
 
 
@@ -135,17 +136,19 @@ void draw_gui() {
   grid.sense(track.x, track.y); //for this i should use
 
   // with this I create a path 
-  if (millis() > time + 200) {
+  if (millis() > time + 1) {
     time = millis();
-    if(stepIndex == 99){
-    stepIndex= 0;
+    if (stepIndex == 99) {
+      stepIndex= 0;
     }
+    grid.grid[int(path[stepIndex].x)][int(path[stepIndex].y)]._triggerCount++;
     stepIndex++;
   }
   grid.grid[int(path[stepIndex].x)][int(path[stepIndex].y)]._triggered = true;
-  
-  
+
+
   grid.draw(view2d, xloc, yloc);
+
   Lgrid.draw(view2d, xloc, yloc);
 
   view2d.endDraw();

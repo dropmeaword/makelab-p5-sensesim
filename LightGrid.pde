@@ -46,15 +46,6 @@ class LightGrid {
     where.pushMatrix();
     where.translate(xpos, ypos);
 
-    //with this you can turn on and of a solid color
-    //node[0][0].paint_solid(color(255, 0, 0));
-    //node[4][4].paint_solid(color(255, 0, 0));
-
-    //with this i tested the gradient colors
-    //node[0][0].paint_gradient(color (255, 0, 0), color (0, 255, 250));
-    //node[1][0].paint_gradient(color (255, 0, 0), color (0, 255, 250));
-    //node[2][3].paint_gradient(color (0, 255, 0), color (0, 255, 100));
-
     animation.update();
     animation.show();
 
@@ -68,6 +59,11 @@ class LightGrid {
 
     for (int j = 0; j < GRID_H; j++) {
       for (int i = 0; i < GRID_W; i++) {
+        //println(grid.grid[i][j]._triggerCount + " nee " );
+        //println(node[i][j]._pos);
+        textSize(40);
+        text(int(grid.grid[i][j]._triggerCount), node[i][j]._pos.x+40, node[i][j]._pos.y+40);
+
         node[i][j].draw(where);
         message = message + node[i][j].toString();
       }
@@ -84,7 +80,11 @@ class LightGrid {
     color b = color(0, 255, 100);
 
     //Lgrid.node[int(p.x)][int(p.y)].paint_gradient(color(a), color(b));
+
     Lgrid.node[int(p.x)][int(p.y)].paint_solid( color(b));
+
+
+
     if (int(p.x) > 0) {
       //Lgrid.node[int(p.x)-1][int(p.y)].paint_solid( color(a));
     }
