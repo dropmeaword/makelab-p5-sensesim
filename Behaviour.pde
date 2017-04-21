@@ -29,38 +29,38 @@
 class Behaviour {
   public int [][]totalCountPerTrigger;
   public  int activeTriggerCounter;
-
   boolean on = false;
   ModelSensor [][]lastTriggered;
   ModelSensor [][]prevTriggered;
-
-  //PVector lastTriggered;
+  public LightGrid gridBehaviour;
 
   //I want to have something that gives me the last triggered sencor. But this can be multiple sensors.. 
   //I also want to have al little history on the seosores that have been triggered in the past so the behaviour can react to that
-
-
 
   Behaviour() {
     totalCountPerTrigger = new int[GRID_W][GRID_H];
     activeTriggerCounter = 0;
   }
+
+  public void setParentGrid(LightGrid lg) {
+    this.gridBehaviour = lg;
+  }
+
+
   void update() {
     int triggerCount = 0; 
     for (int j = 0; j < GRID_H; j++) {
       for (int i = 0; i < GRID_W; i++) {
         totalCountPerTrigger[i][j] = int(grid.grid[i][j]._triggerCount);
-        //println(grid.grid[i][j]._triggered);
         if (grid.grid[i][j]._triggered) {
           triggerCount++;
-          //lastTriggered = grid.grid[i][j];
-          Lgrid.node[i][j].paint_gradient(color(255, 0, 0), color(0, 255, 0));
-        } else {
-          //Lgrid.node[i][j].paint_gradient(color(255, 0, 255), color(0, 255, 0));
         }
       }
     }
-    //println(activeTriggerCounter);
     activeTriggerCounter = triggerCount;
   }
+}
+
+
+class FieldBehaviour extends Behaviour {
 }

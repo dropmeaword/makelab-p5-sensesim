@@ -6,6 +6,7 @@ class LightGrid {
   int Xoffset = 400;
 
   public Animation animation;
+  public Behaviour behave; 
 
   public LightGrid(int w, int h) {
     _width = w;
@@ -41,6 +42,11 @@ class LightGrid {
     this.animation.setParentGrid( this );
   }
 
+  public void setCurrentBehaviour(Behaviour beh) {
+    this.behave = beh;
+    this.behave.setParentGrid( this );
+  }
+
   public void draw(PGraphics where, int xpos, int ypos) {
     where.smooth();
     where.pushMatrix();
@@ -52,11 +58,8 @@ class LightGrid {
     //there has to be a way to trigger this testValues with the sensors
 
     testValues(testValues);
+    
     behave.update(); // this is where i trigger the BAHAVE class
-
-    String ip ="127.0.0.1";
-    int port = 6406;
-    String message = "";
 
     for (int j = 0; j < GRID_H; j++) {
       for (int i = 0; i < GRID_W; i++) {
@@ -66,15 +69,10 @@ class LightGrid {
         text(int(grid.grid[i][j]._triggerCount), node[i][j]._pos.x+40, node[i][j]._pos.y+40);
 
         node[i][j].draw(where);
-        message = message + node[i][j].toString();
+        //message = message + node[i][j].toString();
       }
     }
     
-    
-    
-    //println(message);
-    udps.send(message, ip, port);
-
     where.popMatrix();
   }//draw
 

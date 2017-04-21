@@ -23,7 +23,7 @@ final static int GRID_W = 6;
 
 SensorGrid grid;
 LightGrid Lgrid;
-Behaviour behave; 
+
 Control communication;
 
 PGraphics view2d;
@@ -97,7 +97,7 @@ void setup() {
   g3 = (PGraphics3D)g;
   grid = new SensorGrid(GRID_W, GRID_H);
   Lgrid = new LightGrid(GRID_W, GRID_H);
-  behave = new Behaviour();
+
   communication = new Control();
 
   track = new PVector(0, 0, 0);
@@ -121,6 +121,7 @@ void setup() {
   //Lgrid.setCurrentAnimation(new Sleep(500));
   //Lgrid.setCurrentAnimation(new Lure(50, 2, 2000, Lgrid.bounds(), Lgrid.Xoffset));
   Lgrid.setCurrentAnimation(new Dead());
+  Lgrid.setCurrentBehaviour(new FieldBehaviour());
   //Lgrid.setCurrentAnimation(new Heatmap());
   //there should be an "animation" added where 
 
@@ -147,7 +148,7 @@ void draw_gui() {
 
   track.x = mouseX - xloc;
   track.y = mouseY - yloc;
-  
+
   grid.sense(track.x, track.y); //for this i should use
 
   // with this I create a path 
@@ -182,9 +183,9 @@ void draw_gui() {
 
   grid.draw(view2d, xloc, yloc);
   Lgrid.draw(view2d, xloc, yloc);
-  
-  
-  
+
+
+
 
   view2d.endDraw();
 
