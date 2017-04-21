@@ -24,13 +24,9 @@ int sensitivity = 30;
 
 SensorGrid grid;
 LightGrid Lgrid;
-<<<<<<< HEAD
 
-Control communication;
-=======
 Behaviour behave;
 // Control communication;
->>>>>>> origin/master
 
 PGraphics view2d;
 
