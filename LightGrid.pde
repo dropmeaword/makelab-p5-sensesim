@@ -52,6 +52,8 @@ class LightGrid {
     //there has to be a way to trigger this testValues with the sensors
 
     testValues(testValues);
+    behave.update(); // this is where i trigger the BAHAVE class
+
     String ip ="127.0.0.1";
     int port = 6406;
     String message = "";
@@ -67,6 +69,9 @@ class LightGrid {
         message = message + node[i][j].toString();
       }
     }
+    
+    
+    
     //println(message);
     udps.send(message, ip, port);
 

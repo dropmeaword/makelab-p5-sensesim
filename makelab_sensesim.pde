@@ -90,6 +90,7 @@ void setup() {
   grid = new SensorGrid(GRID_W, GRID_H);
   Lgrid = new LightGrid(GRID_W, GRID_H);
   behave = new Behaviour();
+  
   track = new PVector(0, 0, 0);
   person = new Person[5];
   for (int i =0; i < person.length; i++) {
@@ -149,8 +150,8 @@ void draw_gui() {
     stepIndex++;
   }
   grid.grid[int(path[stepIndex].x)][int(path[stepIndex].y)]._triggered = true;
-
-
+  
+  
   grid.draw(view2d, xloc, yloc);
   Lgrid.draw(view2d, xloc, yloc);
 
