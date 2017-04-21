@@ -1,4 +1,4 @@
-class LightNode {
+ class LightNode {
 
   public class GradientType {
     final public int LINEAR = 0;

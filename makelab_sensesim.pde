@@ -101,11 +101,10 @@ void setup() {
 
 
   //Lgrid.setCurrentAnimation(new Rest(50, 5, 5000, Lgrid.bounds(), Lgrid.Xoffset));
-  Lgrid.setCurrentAnimation(new Attack(100, Lgrid.bounds(), Lgrid.Xoffset));
+  //Lgrid.setCurrentAnimation(new Attack(100, Lgrid.bounds(), Lgrid.Xoffset));
   //Lgrid.setCurrentAnimation(new Sleep(500));
-
   //Lgrid.setCurrentAnimation(new Lure(50, 2, 2000, Lgrid.bounds(), Lgrid.Xoffset));
-  //Lgrid.setCurrentAnimation(new Dead());
+  Lgrid.setCurrentAnimation(new Dead());
   //there should be an "animation" added where 
 
 
@@ -134,6 +133,7 @@ void draw_gui() {
 
   grid.sense(track.x, track.y); //for this i should use
 
+  // with this I create a path 
   if (millis() > time + 200) {
     time = millis();
     if(stepIndex == 99){
@@ -141,8 +141,8 @@ void draw_gui() {
     }
     stepIndex++;
   }
-
-  //grid.grid[int(path[stepIndex].x)][int(path[stepIndex].y)]._triggered = true; 
+  grid.grid[int(path[stepIndex].x)][int(path[stepIndex].y)]._triggered = true;
+  
   
   grid.draw(view2d, xloc, yloc);
   Lgrid.draw(view2d, xloc, yloc);
@@ -166,7 +166,6 @@ void draw() {
   background(0);
 
   //update();
-
   ////float cameraY = 200; //height/8.0;
   ////float fov = 1000/float(width) * PI/2;
   ////float cameraZ = cameraY / tan(fov / 2.0);
@@ -176,7 +175,6 @@ void draw() {
   cam.beginHUD();
   draw_cp5_gui();
   cam.endHUD();
-
   draw_gui();
 }
 
