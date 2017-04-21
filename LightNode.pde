@@ -4,17 +4,16 @@
     final public int LINEAR = 0;
     final public int SINUS = 0;
   };
-
+  
   final public int PIXEL_COUNT = 36;
-
   public PVector _pos;
   public boolean _on; 
   public int _id;
-  
   public int []pix;
-
   public float _radius;
   protected LightGrid _parent;
+  public boolean _updated = false;
+  
 
   public LightNode(LightGrid parent, PVector position, int radius, int id) {
     _pos = position;
@@ -23,11 +22,9 @@
     _id = id;
     pix = new int[PIXEL_COUNT*3];
   }
-
   public void testpattern() {
     // something happens here that sends the test pattern command to the node (bothin the simulator and the hardware)
   }
-
   public void paint_solid(color c) {
     // something happens here that sends the test pattern command to the node (bothin the simulator and the hardware)
 

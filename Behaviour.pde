@@ -16,14 +16,12 @@ class Behaviour {
         }
         //print(maxVal);
         triggerCount[i][j] = int(grid.grid[i][j]._triggerCount);
-      
         if (triggerCount[i][j] < maxVal/10) {
           Lgrid.node[i][j].paint_solid(a);
         }
       }
     }
   }
-
   void show() {
   }
 }

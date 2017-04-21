@@ -199,9 +199,6 @@ class Attack extends Animation {
   }
 
   void show() {
-    //fill(255, 0, 0);
-    //ellipse(pos.x, pos.y, size*2, size*2);
-
     for (int j = 0; j < GRID_H; j++) {
       for (int i = 0; i < GRID_W; i++) {
         dist = int(dist(pos.x, pos.y, gridAnimation.node[i][j]._pos.x+gridAnimation._step/1.5, gridAnimation.node[i][j]._pos.y+gridAnimation._step/1.5));
