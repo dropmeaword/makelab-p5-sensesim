@@ -21,6 +21,7 @@ PGraphics3D g3;
 int threshold = 100;
 int detail = 100;
 int sensitivity = 30;
+boolean testpattern = false;
 
 SensorGrid grid;
 LightGrid Lgrid;
@@ -77,6 +78,10 @@ void init_gui() {
     .setPosition(cursor.x, cursor.y)
     .setRange(0, 5000)
     //.setGroup(g1)
+    ;
+  cursor.y += 20;
+  cp5.addButton("testpattern")
+    .setPosition(cursor.x, cursor.y)
     ;
 
   cp5.setAutoDraw(false);
@@ -137,6 +142,7 @@ void setup() {
   //Lgrid.setCurrentAnimation(new Lure(50, 2, 2000, Lgrid.bounds(), Lgrid.Xoffset));
   Lgrid.setCurrentAnimation(new Dead());
   Lgrid.setCurrentBehaviour(new FieldBehaviour());
+  Lgrid.setCurrentBehaviour(new TestBehaviour());
   //Lgrid.setCurrentAnimation(new Heatmap());
   //there should be an "animation" added where
 
@@ -167,8 +173,7 @@ void draw_gui() {
   grid.sense(track.x, track.y); //for this i should use
 
   // with this I create a path
-  //walkTheGrid();
-
+  walkTheGrid();
 
   //test for the ACK test
   //println(iptopos("192.168.8.147")[0]);
@@ -179,10 +184,11 @@ void draw_gui() {
   grid.draw(view2d, xloc, yloc);
   Lgrid.draw(view2d, xloc, yloc);
 
-
-  testValuesSensors();
-
-
+  //testValuesSensors();
+  if (testpattern) {
+    Lgrid.setCurrentBehaviour(new TestBehaviour());
+    testpattern = false;
+  }
 
   view2d.endDraw();
 

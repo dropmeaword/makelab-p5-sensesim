@@ -70,7 +70,6 @@ class SensorGrid {
           //activatedSensors[i][j]
           
           
-          
           PVector testVal = new PVector(i, j);
           Lgrid.testValues = testVal;
         }

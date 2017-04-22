@@ -1,4 +1,4 @@
- class LightNode {
+class LightNode {
 
   public class GradientType {
     final public int LINEAR = 0;
@@ -14,6 +14,9 @@
   protected LightGrid _parent;
   public boolean _updated = false;
   public int _whatField;
+  
+  public boolean testing = false;
+  
 
   public NetAddress ipaddress;
 
@@ -30,9 +33,21 @@
     this.ipaddress = address;
   }
 
+  public void paint_testPattern(color c) {
+    for (int i = 0; i < PIXEL_COUNT *3; i+=3) {
+      pix[i] = int(red(c));
+      pix[i+1] = int(green(c));
+      pix[i+2] = int(blue(c));
+    }
+    if (testing == false) {
+      testpattern();
+      testing = true;
+    }
+  }
+
   public void testpattern() {
     OscMessage out = new OscMessage("/node/testpattern");
-    if(ipaddress != null) {
+    if (ipaddress != null) {
       oscin.send(out, ipaddress);
     } else {
       //println("(!!!) I don't have an IP why?");
@@ -41,10 +56,12 @@
 
   public void osc_dispatch_solid(color c) {
     OscMessage out = new OscMessage("/node/solid");
+
     out.add( red(c) );
     out.add( green(c) );
     out.add( blue(c) );
-    if(ipaddress != null) {
+    if (ipaddress != null) {
+      //println(out, ipaddress);
       oscin.send(out, ipaddress);
     } else {
       //println("(!!!) I don't have an IP why?");
@@ -53,20 +70,14 @@
 
   public void paint_solid(color c) {
     //this is the code for the simulator
+
     for (int i = 0; i < PIXEL_COUNT *3; i+=3) {
       pix[i] = int(red(c));
       pix[i+1] = int(green(c));
       pix[i+2] = int(blue(c));
     }
-
     osc_dispatch_solid(c);
   }
-
-  //!!! For now I use the gradient type that i got from the Arduino code
-  //public void paint_gradient(color a, color b, GradientType type) {
-  //    // something happens here that sends the test pattern command to the node (bothin the simulator and the hardware)
-
-  //  }
 
   public void osc_dispatch_gradient(color a, color b) {
     OscMessage out = new OscMessage("/node/gradient");
@@ -77,7 +88,6 @@
     out.add( red(b) );
     out.add( green(b) );
     out.add( blue(b) );
-
     oscin.send(out, ipaddress);
   }
 
@@ -134,8 +144,6 @@
       //println(color(pix[i]));
       where.ellipse(pos.x, pos.y, 4, 4);
     }
-
-
   }
 
   public void draw_basic_circle(PGraphics where) {

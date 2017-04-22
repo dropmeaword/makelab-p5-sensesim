@@ -151,10 +151,6 @@ class AttackBehaviour extends Behaviour {
       }
     }
     Lgrid.node[attackX][attackY].paint_solid(color(255, 0, 0));
-    
-    
-    
-    
     //Lgrid.node[int(attackStart1.x)][int(attackStart1.y)].paint_solid(color(255));
     //Lgrid.node[int(attackStart2.x)][int(attackStart2.y)].paint_solid(color(255));
   }
@@ -184,5 +180,31 @@ class AttackBehaviour extends Behaviour {
     for (int i = 0; i < attackPath.length; i++) {
       print(i);
     }
+  }
+}
+
+class TestBehaviour extends Behaviour {
+
+  TestBehaviour() {
+  }
+
+
+  void update() {
+    //for (int j = 0; j < GRID_H; j++) {
+    //  for (int i = 0; i < GRID_W; i++) {
+    //  }
+    //}
+  }
+
+
+  void show() {
+    for (int j = 0; j < GRID_H; j++) {
+      for (int i = 0; i < GRID_W; i++) {
+        Lgrid.node[i][j].paint_testPattern(color(255, 0, 255));
+      }
+    }
+    
+    Lgrid.setCurrentBehaviour(new AttackBehaviour(3, 3));
+    
   }
 }
