@@ -3,7 +3,7 @@ class ModelSensor {
 
   public int _sensitivity; // how many ms the thing must be present before it's detected
   public float _radius; // radius of the area sensed
-  public long _lastDetected; 
+  public long _lastDetected;
   public boolean _triggered;
   public long _triggerCount;
   public boolean _alive;
@@ -41,6 +41,7 @@ class ModelSensor {
     where.translate(_pos.x, _pos.y);
     where.noFill();
     if ( _alive) {
+      where.strokeWeight(2.0);
       where.stroke(0, 255, 0);
     }
      else {
@@ -77,7 +78,7 @@ class ModelSensor {
   //          _lastDetected = -1;
   //          _triggered = retval = true;
   //          _triggerCount++;
-  //          // @NOTE must debounce so that it's not triggered more than once 
+  //          // @NOTE must debounce so that it's not triggered more than once
   //          // every time you go under the sensor
   //        }
   //      }
