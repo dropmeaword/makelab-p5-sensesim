@@ -25,6 +25,8 @@ Behaviour behave;
 String []selectedBehaviour;
 int AmoutOfBehaviours = 4;
 
+public boolean enableScreen= false;
+
 boolean behaviour1 = false;
 boolean behaviour2 = false;
 boolean behaviour3 = false;
@@ -100,6 +102,12 @@ void init_gui() {
     .setPosition(cursor.x, cursor.y)
 
     ;
+
+
+
+  cp5.addToggle("enableScreen")
+    .setPosition(width-200, height-100)
+    ;  
   cp5.setAutoDraw(false);
 }
 
@@ -202,9 +210,6 @@ void draw_gui() {
     behaviour3 = false;
   }
 
-  fill(255);
-  text(frameRate, width-100, height-100);
-
   view2d.endDraw();
 
   image(view2d, 0, 0);
@@ -281,5 +286,16 @@ void draw() {
   cam.beginHUD();
   draw_cp5_gui();
   cam.endHUD();
-  draw_gui();
+  displayFrameRate();  
+  if (enableScreen)
+  {  
+    draw_gui();
+  } else {
+  }
+}
+
+void displayFrameRate() {
+  textSize(15);
+  fill(255);
+  text("FrameRate " + frameRate, 0,200);
 }
