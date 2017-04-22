@@ -13,6 +13,7 @@
   public float _radius;
   protected LightGrid _parent;
   public boolean _updated = false;
+  public int _whatField;
 
   public NetAddress ipaddress;
 

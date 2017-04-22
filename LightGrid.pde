@@ -66,6 +66,7 @@ class LightGrid {
     testValues(testValues);
 
     behave.update(); // this is where i trigger the BAHAVE class
+    behave.show(); // this is where i trigger the BAHAVE class
 
     for (int j = 0; j < GRID_H; j++) {
       for (int i = 0; i < GRID_W; i++) {
