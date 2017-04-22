@@ -77,7 +77,13 @@ void forward_to_node(OscMessage outmsg, NetAddress dest) {
 }
 
 void handle_node_heartbeat(OscMessage inmsg) {
-  println("HEARTBEAT from node " + inmsg.get(0).intValue() );
+  println("HEARTBEAT from node " + inmsg.get(0).intValue() );  /// 206  ->  192.168.8.206
+  
+  //Hier krijg ik straks een int waarde terug
+  //bv [0][0];
+   
+  //grid.grid[x][y].
+  
 }
 
 void handle_node_sensor_data(OscMessage inmsg) {
@@ -96,6 +102,6 @@ void oscEvent(OscMessage inmsg) {
   if (inmsg.checkAddrPattern("/0/Panel") == true) {
     handle_firefly_message( inmsg );
   } else {
-    //handle_hardware_message( inmsg );
+    handle_hardware_message( inmsg );
   }
 } // global OSC input handler
