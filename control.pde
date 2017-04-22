@@ -25,19 +25,26 @@ public NetAddress grid_pos_to_ip_address(int row, int col) {
 
 
 
-
+//!!!!!!! ____!_!_!_!_!_!_!_!_!_This we have to write in such a way that it works!!!!
 int[] iptopos(String ipstr) {
-  ipstr.split(".");
-  int device_id = Integer.parseInt(ipstr[3]);
-  return iptopos(device_id);
+  //println(ipstr);
+  String[] parts = ipstr.split(",");
+  //print(parts.length);
+  //println("parts" + parts[0]);
+  //int device_id = Integer.parseInt(parts[3]);
+  //return iptopos(device_id); 
+  return iptopos(int(random(100, 147)));  //THIS IS A TEST VALUE
 }
 
 int[] iptopos(int device_id) {
   int []coords = new int[2];
-  
-
-
-    return coords;
+  int id = device_id;
+  id -=100;
+  int idX= id %GRID_W;
+  int idY = id/ GRID_W;
+  coords[0]= idX;
+  coords[1]= idY;
+  return coords;
 }
 
 
@@ -78,16 +85,17 @@ void forward_to_node(OscMessage outmsg, NetAddress dest) {
 
 void handle_node_heartbeat(OscMessage inmsg) {
   println("HEARTBEAT from node " + inmsg.get(0).intValue() );  /// 206  ->  192.168.8.206
-  
-  //Hier krijg ik straks een int waarde terug
-  //bv [0][0];
-   
-  //grid.grid[x][y].
-  
+  int x = iptopos("192.168.8.147")[0];
+  int y = iptopos("192.168.8.147")[1];
+  grid.grid[x][y]._alive = true;
 }
 
 void handle_node_sensor_data(OscMessage inmsg) {
   println("SENSOR from node " + inmsg.get(0).intValue() );
+
+  int x = iptopos("192.168.8.147")[0];
+  int y = iptopos("192.168.8.147")[1];
+  grid.grid[x][y]._triggered = true;
 }
 
 void handle_hardware_message(OscMessage inmsg) {

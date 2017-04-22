@@ -98,7 +98,7 @@ void load_sample_paths() {
 
 void setup() {
   size(1024, 600, P3D);
-  iptopos(147);
+
   init_osc();
   init_networking(GRID_W, GRID_H);
 
@@ -109,7 +109,6 @@ void setup() {
   behave = new Behaviour();
 
   load_sample_paths();
-
 
   //communication = new Control();
 
@@ -126,7 +125,6 @@ void setup() {
   cam.setMaximumDistance(1000);
 
   init_gui();
-
 
   //with this i test the different animations made by Thomas
   //Lgrid.setCurrentAnimation(new Rest(50, 5, 5000, Lgrid.bounds(), Lgrid.Xoffset));
@@ -165,6 +163,46 @@ void draw_gui() {
   grid.sense(track.x, track.y); //for this i should use
 
   // with this I create a path
+  //walkTheGrid();
+
+
+  //test for the ACK test
+  //println(iptopos("192.168.8.147")[0]);
+  //println(iptopos("192.168.8.147")[1]);
+
+
+
+  grid.draw(view2d, xloc, yloc);
+  Lgrid.draw(view2d, xloc, yloc);
+
+
+
+  int g = iptopos("192.168.8.147")[0];
+  int h = iptopos("192.168.8.147")[1];
+  //println(g,h);
+
+
+  for (int j = 0; j < GRID_H; j++) {
+    for (int i = 0; i < GRID_W; i++) {
+      if ( i == g && j == h ) {
+        grid.grid[g][h]._triggerCount++;
+        grid.grid[g][h]._triggered = true;
+      } else {
+        grid.grid[i][j]._triggered = false;
+      }
+    }
+  }
+
+
+  view2d.endDraw();
+
+  image(view2d, 0, 0);
+
+  cam.endHUD();
+  hint(ENABLE_DEPTH_TEST);
+}
+
+void walkTheGrid() {
   if (millis() > time + 1) {
     time = millis();
     if (stepIndex == ary.length-1) {
@@ -191,21 +229,6 @@ void draw_gui() {
       }
     }
   }
-
-
-
-  grid.draw(view2d, xloc, yloc);
-  Lgrid.draw(view2d, xloc, yloc);
-
-
-
-
-  view2d.endDraw();
-
-  image(view2d, 0, 0);
-
-  cam.endHUD();
-  hint(ENABLE_DEPTH_TEST);
 }
 
 void update() {
