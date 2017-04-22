@@ -25,9 +25,5 @@ class Heatmap extends Animation {
   }
   void sendData(int i, int j, color c) {
     Lgrid.node[i][j].paint_solid( color(c));
-    
-    
-    
-    
   }
 }

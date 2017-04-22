@@ -34,6 +34,7 @@ class Behaviour {
   ModelSensor [][]prevTriggered;
   public LightGrid gridBehaviour;
   public boolean attacked = false;
+  public int maxValue = 1;
 
   //I want to have something that gives me the last triggered sencor. But this can be multiple sensors.. 
   //I also want to have al little history on the seosores that have been triggered in the past so the behaviour can react to that
@@ -55,9 +56,9 @@ class Behaviour {
         if (grid.grid[i][j]._triggered) {
           triggerCount++;
         }
-        if (totalCountPerTrigger[i][j] > 5 && attacked == false) {
-          Lgrid.setCurrentBehaviour(new AttackBehaviour(i, j));
-        }
+        //if (totalCountPerTrigger[i][j] > 50 && attacked == false) {
+        //Lgrid.setCurrentBehaviour(new AttackBehaviour(i, j));
+        //}
       }
     }
     activeTriggerCounter = triggerCount;
@@ -118,6 +119,41 @@ class FieldBehaviour extends Behaviour {
 }
 
 
+class SleepBehaviour extends Behaviour{
+  int pulse, base;
+  int brightness;
+  String state = "on";
+  SleepBehaviour(int pluse) {
+    this.pulse = pluse;
+    this.base = pulse;
+  }
+  void update() { 
+    if (pulse <= 0) {
+      state = "off";
+    }
+    if (pulse >= base) {
+      state = "on";
+    }
+    if (state == "off") {
+      pulse++;
+    }
+    if (state == "on") {
+      pulse--;
+    }
+    brightness = int(map(pulse, 0, base, 0, 255));
+  }
+
+  void show() {
+    for (int j = 0; j < GRID_H; j++) {
+      for (int i = 0; i < GRID_W; i++) {
+        Lgrid.node[i][j].paint_solid(color(brightness));
+      }
+    }
+  }
+
+}
+
+
 class AttackBehaviour extends Behaviour {
   PVector pointToAttack;
   PVector attackStart1;
@@ -151,8 +187,6 @@ class AttackBehaviour extends Behaviour {
       }
     }
     Lgrid.node[attackX][attackY].paint_solid(color(255, 0, 0));
-    //Lgrid.node[int(attackStart1.x)][int(attackStart1.y)].paint_solid(color(255));
-    //Lgrid.node[int(attackStart2.x)][int(attackStart2.y)].paint_solid(color(255));
   }
 
   public PVector pickPointOnStepsAway(PVector p, int howManySteps) {
@@ -183,28 +217,44 @@ class AttackBehaviour extends Behaviour {
   }
 }
 
-class TestBehaviour extends Behaviour {
 
+class heatmap_behaviour extends Behaviour {
+
+  color c = color(0);
+  heatmap_behaviour() {
+  }
+  void update() {
+    int counter = 0;
+    for (int j = 0; j < GRID_H; j++) {
+      for (int i = 0; i < GRID_W; i++) {
+        if (int(grid.grid[i][j]._triggerCount) > maxValue) {
+          maxValue = int(grid.grid[i][j]._triggerCount);
+        }
+        int TriggerCount = int(grid.grid[i][j]._triggerCount);
+        color green = color(0, 255, 0);
+        color red = color(255, 0, 0);
+        float inter = map(TriggerCount, 0, maxValue, 0, 1);
+        c = lerpColor(green, red, inter);
+        sendData(i, j, c);
+        counter++;
+      }
+    }
+  }
+  void show() {
+  }
+  void sendData(int i, int j, color c) {
+    Lgrid.node[i][j].paint_solid( color(c));
+  }
+}
+class TestBehaviour extends Behaviour {
   TestBehaviour() {
   }
-
-
-  void update() {
-    //for (int j = 0; j < GRID_H; j++) {
-    //  for (int i = 0; i < GRID_W; i++) {
-    //  }
-    //}
-  }
-
-
   void show() {
     for (int j = 0; j < GRID_H; j++) {
       for (int i = 0; i < GRID_W; i++) {
         Lgrid.node[i][j].paint_testPattern(color(255, 0, 255));
       }
     }
-    
-    Lgrid.setCurrentBehaviour(new AttackBehaviour(3, 3));
-    
+    Lgrid.setCurrentBehaviour(new SleepBehaviour(10));
   }
 }

@@ -12,7 +12,6 @@ class Dead extends Animation {
   }
 }
 
-
 class Sleep extends Animation {
 
   int pulse, base;
