@@ -60,7 +60,6 @@ class SensorGrid {
   }
 
   public void draw(PGraphics where, int xpos, int ypos) {
-    //where.smooth();
     where.pushMatrix();
     where.translate(xpos, ypos);
     for (int j = 0; j < GRID_H; j++) {
@@ -68,15 +67,25 @@ class SensorGrid {
         grid[i][j].setSensitivity(sensitivity);
         if (grid[i][j]._triggered) {
           //activatedSensors[i][j]
-          
-          
           PVector testVal = new PVector(i, j);
           Lgrid.testValues = testVal;
         }
-
         grid[i][j].draw(where);
       }
     }
     where.popMatrix();
-  }
+  }//draw
+
+  public void run(int xpos, int ypos) {
+    for (int j = 0; j < GRID_H; j++) {
+      for (int i = 0; i < GRID_W; i++) {
+        grid[i][j].setSensitivity(sensitivity);
+        if (grid[i][j]._triggered) {
+          PVector testVal = new PVector(i, j);
+          Lgrid.testValues = testVal;
+        }
+      }//for
+    }//for
+  }//run
+  
 } // class

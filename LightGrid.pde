@@ -83,6 +83,13 @@ class LightGrid {
     where.popMatrix();
   }//draw
 
+  public void run(int xpos, int ypos) {
+    animation.update();
+    animation.show();
+    behave.update(); // this is where i trigger the BAHAVE class
+    behave.show(); // this is where i trigger the BAHAVE class
+  }
+
   public void testValues(PVector p) {
 
     color a = color(255, 0, 0);

@@ -142,8 +142,6 @@ void setup() {
 
   load_sample_paths();
 
-  //communication = new Control();
-
   track = new PVector(0, 0, 0);
 
   view2d = createGraphics(800, 600, P3D);
@@ -184,14 +182,19 @@ void draw_gui() {
 
   track.x = mouseX - xloc;
   track.y = mouseY - yloc;
-
   grid.sense(track.x, track.y); //for this i should use
-
   // with this I create a path
   walkTheGrid();
 
-  grid.draw(view2d, xloc, yloc);
-  Lgrid.draw(view2d, xloc, yloc);
+  if (enableScreen == true) {    
+    Lgrid.draw(view2d, xloc, yloc);
+    grid.draw(view2d, xloc, yloc);
+  } else {
+    Lgrid.run( xloc, yloc);
+    grid.run( xloc, yloc);
+    
+  }
+
 
   //testValuesSensors();
   if (testpattern) {
@@ -286,16 +289,13 @@ void draw() {
   cam.beginHUD();
   draw_cp5_gui();
   cam.endHUD();
-  displayFrameRate();  
-  if (enableScreen)
-  {  
-    draw_gui();
-  } else {
-  }
+
+  draw_gui();
+  displayFrameRate();
 }
 
 void displayFrameRate() {
   textSize(15);
   fill(255);
-  text("FrameRate " + frameRate, 0,200);
+  text("FrameRate " + frameRate, 0, 200);
 }
