@@ -48,10 +48,11 @@ void forward_to_node(OscMessage outmsg, NetAddress dest) {
 }
 
 void handle_node_heartbeat(OscMessage inmsg) {
-
+  println("HEARTBEAT from node " + inmsg.get(0).intValue() );
 }
 
 void handle_node_sensor_data(OscMessage inmsg) {
+  println("SENSOR from node " + inmsg.get(0).intValue() );
 }
 
 void handle_hardware_message(OscMessage inmsg) {
