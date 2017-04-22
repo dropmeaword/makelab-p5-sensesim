@@ -55,7 +55,7 @@ class LightGrid {
   }
 
   public void draw(PGraphics where, int xpos, int ypos) {
-    where.smooth();
+    //where.smooth();
     where.pushMatrix();
     where.translate(xpos, ypos);
 

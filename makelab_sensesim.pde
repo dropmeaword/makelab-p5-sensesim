@@ -157,7 +157,6 @@ void setup() {
   Lgrid.setCurrentBehaviour(new heatmap_behaviour());
   //Lgrid.setCurrentAnimation(new Heatmap());
   //there should be an "animation" added where
-
   // udps = new UDP( this, 6005 ); // this is the for the communication with Grasshopper
 }
 
@@ -238,7 +237,7 @@ void testValuesSensors() {
 }//void
 
 void walkTheGrid() { // these are the RHINO  / GRASSHOPPER files
-  if (millis() > time + 1) {
+  if (millis() > time + 1000) {
     time = millis();
     if (stepIndex == ary.length-1) {
       stepIndex= 0;

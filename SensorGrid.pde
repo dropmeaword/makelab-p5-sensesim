@@ -60,7 +60,7 @@ class SensorGrid {
   }
 
   public void draw(PGraphics where, int xpos, int ypos) {
-    where.smooth();
+    //where.smooth();
     where.pushMatrix();
     where.translate(xpos, ypos);
     for (int j = 0; j < GRID_H; j++) {
