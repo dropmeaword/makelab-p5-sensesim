@@ -11,9 +11,9 @@ void init_networking(int rows, int cols) {
   }
 }
 
-public NetAddress get_ip_from_grid(int row, int col) {
+public NetAddress grid_pos_to_ip_address(int row, int col) {
   if ( nodes != null) {
-    println("dest >> " + nodes[row][col]);
+    //println("dest >> " + nodes[row][col]);
     return nodes[row][col];
   } else {
     return null;
