@@ -15,6 +15,8 @@ class LightNode {
   public boolean _updated = false;
   public int _whatField;
 
+  public boolean _refreshed = false;
+
 
   public boolean _alive = false;
 
@@ -72,10 +74,17 @@ class LightNode {
     } else {
       //println("(!!!) I don't have an IP why?");
     }
+
+    this._refreshed = false;
+  }
+
+  public void refresh() {
+    this._refreshed = true;
   }
 
   public void paint_solid(color c) {
     //this is the code for the simulator
+    if(c != lastColor) { this.refresh(); }
 
     for (int i = 0; i < PIXEL_COUNT *3; i+=3) {
       pix[i] = int(red(c));
@@ -83,9 +92,11 @@ class LightNode {
       pix[i+2] = int(blue(c));
     }
 
-    if(this._alive) {
+    if(this._alive && this._refreshed) {
       osc_dispatch_solid(c);
     }
+
+    lastColor = c;
   }
 
   public void osc_dispatch_gradient(color a, color b) {
