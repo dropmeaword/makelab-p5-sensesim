@@ -8,7 +8,6 @@ import netP5.*;
 OscP5 ffosc; // incoming OSC for Firefly/Grasshopper
 OscP5 oscin; // incoming OSC from the hardware nodes
 
-
 ControlP5 cp5;
 PeasyCam cam;
 PMatrix3D currCameraMatrix;
@@ -127,7 +126,6 @@ void setup() {
   int []loc = ip_to_grid_pos(123);
   println(">>> grid x "+loc[0]+", grid y "+loc[1]+" of ip 192.168.8."+123+" <<<");
 
-
   g3 = (PGraphics3D)g;
   grid = new SensorGrid(GRID_W, GRID_H);
   Lgrid = new LightGrid(GRID_W, GRID_H);
@@ -139,7 +137,6 @@ void setup() {
   //communication = new Control();
 
   track = new PVector(0, 0, 0);
-
 
   view2d = createGraphics(800, 600, P3D);
   cam = new PeasyCam(this, 400);
@@ -194,8 +191,6 @@ void draw_gui() {
     testpattern = false;
   }
 
-
-
   if (behaviour1 == true) {
     Lgrid.setCurrentBehaviour(new heatmap_behaviour());
     behaviour1 = false;
@@ -207,7 +202,8 @@ void draw_gui() {
     behaviour3 = false;
   }
 
-
+  fill(255);
+  text(frameRate, width-100, height-100);
 
   view2d.endDraw();
 

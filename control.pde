@@ -19,11 +19,7 @@ public NetAddress grid_pos_to_ip_address(int row, int col) {
     return null;
   }
 }
-
-
 //PVector 
-
-
 
 int[] ip_to_grid_pos(int device_id) {
   return ip_to_grid_pos("192.168.8."+device_id);
