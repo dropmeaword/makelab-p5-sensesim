@@ -98,7 +98,7 @@ void load_sample_paths() {
 
 void setup() {
   size(1024, 600, P3D);
-
+  iptopos(147);
   init_osc();
   init_networking(GRID_W, GRID_H);
 

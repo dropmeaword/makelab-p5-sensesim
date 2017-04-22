@@ -20,6 +20,28 @@ public NetAddress grid_pos_to_ip_address(int row, int col) {
   }
 }
 
+
+//PVector 
+
+
+
+
+int[] iptopos(String ipstr) {
+  ipstr.split(".");
+  int device_id = Integer.parseInt(ipstr[3]);
+  return iptopos(device_id);
+}
+
+int[] iptopos(int device_id) {
+  int []coords = new int[2];
+  
+
+
+    return coords;
+}
+
+
+
 void handle_firefly_message(OscMessage inmsg) {
 
   String payload = inmsg.get(0).stringValue();
