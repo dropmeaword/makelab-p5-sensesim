@@ -5,7 +5,7 @@ class LightGrid {
   public PVector testValues;
   int Xoffset = 400;
 
-  public Animation animation;
+  //public Animation animation;
   public Behaviour behave;
 
   public LightGrid(int w, int h) {
@@ -44,10 +44,10 @@ class LightGrid {
     return retval;
   }
 
-  public void setCurrentAnimation(Animation anim) {
-    this.animation = anim;
-    this.animation.setParentGrid( this );
-  }
+  //public void setCurrentAnimation(Animation anim) {
+  //  this.animation = anim;
+  //  this.animation.setParentGrid( this );
+  //}
 
   public void setCurrentBehaviour(Behaviour beh) {
     this.behave = beh;
@@ -59,8 +59,8 @@ class LightGrid {
     where.pushMatrix();
     where.translate(xpos, ypos);
 
-    animation.update();
-    animation.show();
+    //animation.update();
+    //animation.show();
 
     //there has to be a way to trigger this testValues with the sensors
 
@@ -85,9 +85,10 @@ class LightGrid {
   }//draw
 
   public void run(int xpos, int ypos) {
-    animation.update();
+    //animation.update();
+    //animation.show();
+
     behave.updateParent();
-    animation.show();
     behave.update(); // this is where i trigger the BAHAVE class
     behave.show(); // this is where i trigger the BAHAVE class
   }
