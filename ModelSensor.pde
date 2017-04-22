@@ -1,3 +1,4 @@
+ 
 class ModelSensor {
   PVector _pos;
 
@@ -7,6 +8,7 @@ class ModelSensor {
   public boolean _triggered;
   public long _triggerCount;
   public boolean _alive;
+  public int _triggerTimer = 0;
 
   protected SensorGrid _parent;
 
@@ -19,6 +21,7 @@ class ModelSensor {
     _triggerCount = 0;
     _alive = false;
   }
+  
 
   public double weight() {
     return 0.0d;
@@ -55,6 +58,11 @@ class ModelSensor {
     if (_triggered) {
       where.noStroke();
       where.fill(255);
+      _triggerTimer++;
+      if(_triggerTimer > 100){
+      _triggered = false;
+      _triggerTimer =0; 
+      }
     } else {
       where.fill(0);
       where.ellipse(0, 0, 10, 10);

@@ -1,6 +1,7 @@
 public boolean attacked = false;
 public boolean walkMode = true;
 
+
 class Behaviour {
   public int [][]totalCountPerTrigger;
   public  int activeTriggerCounter;
@@ -10,6 +11,8 @@ class Behaviour {
   public LightGrid gridBehaviour;
   public int totalCount = 0 ; 
   public int maxValue = 1;
+
+
   //I want to have something that gives me the last triggered sencor. But this can be multiple sensors.. 
   //I also want to have al little history on the seosores that have been triggered in the past so the behaviour can react to that
   Behaviour() {
@@ -40,13 +43,11 @@ class Behaviour {
     //}
     //activeTriggerCounter = triggerCount;
 
-
     //Lgrid.setCurrentBehaviour(new heatmap_behaviour());
     //Lgrid.node[0][0].paint_solid(color(255, 0, 0));
+
     //Lgrid.node[0][0].paint_gradient(color(255, 0, 0),color(100, 255, 255));
-
-
-    Lgrid.node[0][0].paint_gradient(color(255, 0, 0), color(100, 255, 255));
+    //Lgrid.node[0][0].paint_gradient(color(255, 0, 0), color(100, 255, 255));
   }//update
 
   public void update() {
@@ -194,8 +195,8 @@ class AttackBehaviour extends Behaviour {
     boolean found = false;
     int security = 0; 
     while (found == false) {
-      int ranX  = int(random(GRID_W));
-      int ranY  = int(random(GRID_H));
+      int ranX  = int(random(GRID_W-1));
+      int ranY  = int(random(GRID_H-1));
       int x = incommingX - ranX;
       int y = incommingY - ranY;
       x = abs(x);
@@ -228,8 +229,8 @@ class heatmap_behaviour extends Behaviour {
           maxValue = int(grid.grid[i][j]._triggerCount);
         }
         int TriggerCount = int(grid.grid[i][j]._triggerCount);
-        color green = color(0, 255, 0);
-        color red = color(255, 0, 0);
+        color green = color(255,0,0);
+        color red = color(0,255,0);
         float inter = map(TriggerCount, 0, maxValue, 0, 1);
         c = lerpColor(green, red, inter);
         sendData(i, j, c);
@@ -270,6 +271,129 @@ class followBehaviour extends Behaviour {
     }
   }
 }
+
+int stage =0;
+int LineBehaviourCount = 0;
+boolean up = false;
+class LineBehaviour extends Behaviour {
+
+  LineBehaviour() {
+  }
+  void show() {
+    //println(time);
+    //println(millis()-time);
+    println(stage);
+    if (LineBehaviourCount >25) {
+      LineBehaviourCount = 0;
+      if (up) {
+        up= false;
+      } else if (!up) {
+        up= true;
+      }
+    }
+
+    if (up) {
+      if (millis() - time > 100) {
+        stage++;
+        time = millis();
+
+        if (stage > 13) {
+          stage = 0;
+        }
+        lelijkeCode();
+        LineBehaviourCount++;
+      }
+    } else if (!up) {
+
+      if (millis() - time > 100) {
+        stage--;
+        time = millis();
+
+        if (stage<0) {
+          stage = 13;
+        }
+        lelijkeCode();
+        LineBehaviourCount++;
+      }
+    }
+  }
+}
+
+
+void lelijkeCode() {
+
+  for (int j = 0; j < GRID_H; j++) {
+    for (int i = 0; i < GRID_W; i++) {
+      Lgrid.node[i][j].paint_solid(color(0));
+    }
+  }
+
+
+  if (stage == 0) {
+    for (int i = 0; i < GRID_W; i++) {
+      Lgrid.node[i][stage].paint_gradient(color(255, 0, 255), color(255, 255, 255));
+    }
+  } else if (stage == 1) {
+    for (int i = 0; i < GRID_W; i++) {
+      Lgrid.node[i][stage].paint_gradient(color(255, 0, 255), color(255, 255, 255));
+    }
+  } else if (stage == 2) {
+    for (int i = 0; i < GRID_W; i++) {
+      Lgrid.node[i][stage].paint_gradient(color(255, 0, 255), color(255, 255, 255));
+    }
+  } else if (stage == 3) {
+    for (int i = 0; i < GRID_W; i++) {
+      Lgrid.node[i][stage].paint_gradient(color(255, 0, 255), color(255, 255, 255));
+    }
+  } else if (stage == 4) {
+    for (int i = 0; i < GRID_W; i++) {
+      Lgrid.node[i][stage].paint_gradient(color(255, 0, 255), color(255, 255, 255));
+    }
+  } else if (stage == 5) {
+    for (int i = 0; i < GRID_W; i++) {
+      Lgrid.node[i][stage].paint_gradient(color(255, 0, 255), color(255, 255, 255));
+    }
+  } else if (stage == 6) {
+    for (int i = 0; i < GRID_W; i++) {
+      Lgrid.node[i][stage].paint_gradient(color(255, 0, 255), color(255, 255, 255));
+    }
+  } else if (stage == 7) {
+    for (int i = 0; i < GRID_W; i++) {
+      Lgrid.node[i][stage].paint_gradient(color(255, 0, 255), color(255, 255, 255));
+    }
+  } else if (stage == 8) {
+    for (int i = 0; i < GRID_H; i++) {
+      Lgrid.node[stage-8][i].paint_gradient(color(255, 0, 255), color(255, 255, 255));
+    }
+  } else if (stage == 9) {
+    for (int i = 0; i < GRID_H; i++) {
+      Lgrid.node[stage-8][i].paint_gradient(color(255, 0, 255), color(255, 255, 255));
+    }
+  } else if (stage == 10) {
+    for (int i = 0; i < GRID_H; i++) {
+      Lgrid.node[stage-8][i].paint_gradient(color(255, 0, 255), color(255, 255, 255));
+    }
+  } else if (stage == 11) {
+    for (int i = 0; i < GRID_H; i++) {
+      Lgrid.node[stage-8][i].paint_gradient(color(255, 0, 255), color(255, 255, 255));
+    }
+  } else if (stage == 12) {
+    for (int i = 0; i < GRID_H; i++) {
+      Lgrid.node[stage-8][i].paint_gradient(color(255, 0, 255), color(255, 255, 255));
+    }
+  } else if (stage == 13) {
+    for (int i = 0; i < GRID_H; i++) {
+      Lgrid.node[stage-8][i].paint_gradient(color(255, 0, 255), color(255, 255, 255));
+    }
+  } else if (stage == 13) {
+    for (int i = 0; i < GRID_H; i++) {
+      Lgrid.node[stage-8][i].paint_gradient(color(255, 0, 255), color(255, 255, 255));
+    }
+  }
+}
+
+
+
 
 class TestBehaviour extends Behaviour {
   TestBehaviour() {

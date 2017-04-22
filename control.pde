@@ -89,6 +89,8 @@ void handle_node_sensor_data(OscMessage inmsg) {
   int x = ip_to_grid_pos(inmsg.get(0).intValue())[0];
   int y = ip_to_grid_pos(inmsg.get(0).intValue())[1];
   grid.grid[x][y]._triggered = true;
+  grid.grid[x][y]._triggerCount++;
+  grid.grid[x][y]._triggerTimer = 0;
 }
 
 void handle_hardware_message(OscMessage inmsg) {
@@ -107,7 +109,8 @@ void oscEvent(OscMessage inmsg) {
     } else {
       handle_hardware_message( inmsg );
     }
-  } catch(Exception ex) {
+  } 
+  catch(Exception ex) {
     // DO NOTHING
     println("(!!!) SOMETHING WENT SUPERWRONG");
   }

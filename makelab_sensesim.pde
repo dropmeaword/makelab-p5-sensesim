@@ -30,7 +30,7 @@ public boolean enableScreen= false;
 boolean behaviour1 = false;
 boolean behaviour2 = false;
 boolean behaviour3 = false;
-String behaviour4;
+boolean behaviour4  = false;
 
 PGraphics view2d;
 
@@ -100,6 +100,14 @@ void init_gui() {
   cp5.addButton("behaviour3")
     .setPosition(cursor.x, cursor.y)
     ;
+
+  cursor.y +=20;
+  cp5.addButton("behaviour4")
+    .setPosition(cursor.x, cursor.y)
+    ;
+
+
+
   cp5.addToggle("enableScreen")
     .setPosition(width-200, height-100)
     ;  
@@ -176,7 +184,8 @@ void draw_gui() {
   track.y = mouseY - yloc;
   grid.sense(track.x, track.y); //for this i should use
   // with this I create a path
-  //walkTheGrid();
+  walkTheGrid();
+
 
   if (enableScreen == true) {    
     Lgrid.draw(view2d, xloc, yloc);
@@ -195,12 +204,20 @@ void draw_gui() {
     Lgrid.setCurrentBehaviour(new heatmap_behaviour());
     behaviour1 = false;
   } else if (behaviour2 == true) {
-    Lgrid.setCurrentBehaviour(new AttackBehaviour(4, 4));
+    int ranX = int(random(GRID_W));
+    int ranY = int(random(GRID_H));
+    Lgrid.setCurrentBehaviour(new AttackBehaviour(ranX, ranY));
     behaviour2 = false;
   } else if (behaviour3 == true) {
     Lgrid.setCurrentBehaviour(new SleepBehaviour(100));
     behaviour3 = false;
+  } else if (behaviour4 == true) {
+    Lgrid.setCurrentBehaviour(new LineBehaviour());
+    behaviour4 = false;
   }
+
+
+
 
   view2d.endDraw();
 
@@ -230,7 +247,7 @@ void testValuesSensors() {
 }//void
 
 void walkTheGrid() { // these are the RHINO  / GRASSHOPPER files
-  if (millis() > time + 1000) {
+  if (millis() > time + 1) {
     time = millis();
     if (stepIndex == ary.length-1) {
       stepIndex= 0;
