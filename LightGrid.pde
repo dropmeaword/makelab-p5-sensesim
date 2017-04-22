@@ -77,15 +77,8 @@ class LightGrid {
         text(int(grid.grid[i][j]._triggerCount), node[i][j]._pos.x+40, node[i][j]._pos.y+40);
 
         node[i][j].draw(where);
-        //message = message + node[i][j].toString();
       }
     }
-
-
-
-
-    //println(message);
-    // udps.send(message, ip, port);
 
     where.popMatrix();
   }//draw

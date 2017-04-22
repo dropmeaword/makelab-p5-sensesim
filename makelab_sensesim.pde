@@ -102,6 +102,10 @@ void setup() {
   init_osc();
   init_networking(GRID_W, GRID_H);
 
+  int []loc = ip_to_grid_pos(123);
+  println(">>> grid x "+loc[0]+", grid y "+loc[1]+" of ip 192.168.8."+123+" <<<");
+
+
   g3 = (PGraphics3D)g;
   grid = new SensorGrid(GRID_W, GRID_H);
   Lgrid = new LightGrid(GRID_W, GRID_H);
@@ -176,11 +180,25 @@ void draw_gui() {
   Lgrid.draw(view2d, xloc, yloc);
 
 
+  testValuesSensors();
 
-  int g = iptopos("192.168.8.147")[0];
-  int h = iptopos("192.168.8.147")[1];
-  //println(g,h);
 
+
+  view2d.endDraw();
+
+  image(view2d, 0, 0);
+
+  cam.endHUD();
+  hint(ENABLE_DEPTH_TEST);
+}//draw_gui
+
+
+void testValuesSensors() {
+  int randomInt = int(random(100, 147));
+  String ip = "192.168.8." + randomInt;
+
+  int g = ip_to_grid_pos(ip)[0];
+  int h = ip_to_grid_pos(ip)[1];
 
   for (int j = 0; j < GRID_H; j++) {
     for (int i = 0; i < GRID_W; i++) {
@@ -190,19 +208,11 @@ void draw_gui() {
       } else {
         grid.grid[i][j]._triggered = false;
       }
-    }
-  }
+    }//for
+  }//for
+}//void
 
-
-  view2d.endDraw();
-
-  image(view2d, 0, 0);
-
-  cam.endHUD();
-  hint(ENABLE_DEPTH_TEST);
-}
-
-void walkTheGrid() {
+void walkTheGrid() { // these are the RHINO  / GRASSHOPPER files
   if (millis() > time + 1) {
     time = millis();
     if (stepIndex == ary.length-1) {
