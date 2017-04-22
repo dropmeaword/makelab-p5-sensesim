@@ -42,9 +42,11 @@ class Behaviour {
 
 
     //Lgrid.setCurrentBehaviour(new heatmap_behaviour());
-    Lgrid.node[0][0].paint_solid(color(255, 0, 0));
-    
+    //Lgrid.node[0][0].paint_solid(color(255, 0, 0));
+    //Lgrid.node[0][0].paint_gradient(color(255, 0, 0),color(100, 255, 255));
 
+
+    Lgrid.node[0][0].paint_gradient(color(255, 0, 0), color(100, 255, 255));
   }//update
 
   public void update() {
