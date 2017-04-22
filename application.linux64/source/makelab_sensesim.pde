@@ -1,9 +1,13 @@
 import controlP5.*;
+import gab.opencv.*;
 import java.util.*;
 import peasy.*;
+// import hypermedia.net.*;
 
 import oscP5.*;
 import netP5.*;
+
+// UDP udps;
 
 OscP5 ffosc; // incoming OSC for Firefly/Grasshopper
 OscP5 oscin; // incoming OSC from the hardware nodes
@@ -31,10 +35,13 @@ boolean behaviour2 = false;
 boolean behaviour3 = false;
 String behaviour4;
 
+// Control communication;
+
 PGraphics view2d;
 
 PVector track;
 PVector cursor;
+Contour contour;
 Person []person;
 
 PVector []path;
