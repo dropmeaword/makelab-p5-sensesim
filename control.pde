@@ -42,6 +42,7 @@ int[] ip_to_grid_pos(String ipstr) {
 
 void osc_dispatch_trigger(int nodeid) {
   // if(isFFOnline == true) {
+    println("sensor trigger received, forwarding it to firefly " + nodeid);
     OscMessage out = new OscMessage("/node/sensor");
     out.add( nodeid );
     oscin.send(out, ffout);
