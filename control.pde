@@ -100,9 +100,15 @@ void handle_hardware_message(OscMessage inmsg) {
 }
 
 void oscEvent(OscMessage inmsg) {
-  if (inmsg.checkAddrPattern("/0/Panel") == true) {
-    handle_firefly_message( inmsg );
-  } else {
-    handle_hardware_message( inmsg );
+  println("received OSC message, trying to process it");
+  try {
+    if (inmsg.checkAddrPattern("/0/Panel") == true) {
+      handle_firefly_message( inmsg );
+    } else {
+      handle_hardware_message( inmsg );
+    }
+  } catch(Exception ex) {
+    // DO NOTHING
+    println("(!!!) SOMETHING WENT SUPERWRONG");
   }
 } // global OSC input handler

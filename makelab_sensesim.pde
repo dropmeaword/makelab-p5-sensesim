@@ -153,7 +153,7 @@ void setup() {
   //Lgrid.setCurrentAnimation(new Sleep(500));
   //Lgrid.setCurrentAnimation(new Lure(50, 2, 2000, Lgrid.bounds(), Lgrid.Xoffset));
   Lgrid.setCurrentAnimation(new Dead());
-  Lgrid.setCurrentBehaviour(new SleepBehaviour(100));
+  Lgrid.setCurrentBehaviour(new Behaviour());
 
   //Lgrid.setCurrentAnimation(new Heatmap());
   //there should be an "animation" added where

@@ -70,6 +70,7 @@ class LightNode {
     out.add( green(c) );
     out.add( blue(c) );
     if (ipaddress != null) {
+      println(">>> Sending out an OSC to " + ipaddress);
       //println(out, ipaddress);
       oscin.send(out, ipaddress);
     } else {
@@ -85,7 +86,8 @@ class LightNode {
 
   public void paint_solid(color c) {
     //this is the code for the simulator
-    if(c != lastColor) { this.refresh(); }
+    println("current = " + c + "  last = " +_lastColor);
+    if(c != _lastColor) { this.refresh(); }
 
     for (int i = 0; i < PIXEL_COUNT *3; i+=3) {
       pix[i] = int(red(c));
@@ -97,7 +99,7 @@ class LightNode {
       osc_dispatch_solid(c);
     }
 
-    lastColor = c;
+    _lastColor = c;
   }
 
   public void osc_dispatch_gradient(color a, color b) {
