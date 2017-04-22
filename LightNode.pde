@@ -43,7 +43,7 @@
     oscin.send(out, ipaddress);
   }
 
-  public void paint_solid() {
+  public void paint_solid(color c) {
     //this is the code for the simulator
     for (int i = 0; i < PIXEL_COUNT *3; i+=3) {
       pix[i] = int(red(c));
