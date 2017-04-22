@@ -40,6 +40,15 @@ int[] ip_to_grid_pos(String ipstr) {
 }
 
 
+void osc_dispatch_trigger(int nodeid) {
+  // if(isFFOnline == true) {
+    OscMessage out = new OscMessage("/node/sensor");
+    out.add( nodeid );
+    oscin.send(out, ffout);
+//  }
+}
+
+
 void handle_firefly_message(OscMessage inmsg) {
 
   String payload = inmsg.get(0).stringValue();
@@ -86,9 +95,17 @@ void handle_node_heartbeat(OscMessage inmsg) {
 void handle_node_sensor_data(OscMessage inmsg) {
   println("SENSOR from node " + inmsg.get(0).intValue() );
 
-  int x = ip_to_grid_pos(inmsg.get(0).intValue())[0];
-  int y = ip_to_grid_pos(inmsg.get(0).intValue())[1];
+  int sensorid = inmsg.get(0).intValue();
+
+  // get position of sensor in space
+  int []res = ip_to_grid_pos( sensorid );
+
+  // get x and y
+  int x = res[0];
+  int y = res[1];
+
   grid.grid[x][y]._triggered = true;
+  osc_dispatch_trigger( sensorid );
 }
 
 void handle_hardware_message(OscMessage inmsg) {

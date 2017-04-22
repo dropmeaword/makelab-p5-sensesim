@@ -46,12 +46,17 @@ String[] ary = pathData.split(" ");
 String[] ary2= pathData2.split(" ");
 ArrayList<PVector> positions = new ArrayList<PVector>();
 
+NetAddress ffout;
+boolean isFFOnline = false;
+
 void init_osc()
 {
   println("Listening for Firefly data on port " + OSC_IN_FIREFLY);
   ffosc = new OscP5(this, OSC_IN_FIREFLY);
   println("Listening for node data " + OSC_IN_HARDWARE);
   oscin = new OscP5(this, OSC_IN_HARDWARE);
+  println("Sending data to Firefly on " + FF_OUT_IP_ADDRESS + ":"+OSC_OUT_FIREFLY);
+  ffout = new NetAddress(FF_OUT_IP_ADDRESS, OSC_OUT_FIREFLY);
 }
 
 void init_gui() {
@@ -102,7 +107,7 @@ void init_gui() {
     ;
   cp5.addToggle("enableScreen")
     .setPosition(width-200, height-100)
-    ;  
+    ;
   cp5.setAutoDraw(false);
 }
 
@@ -178,7 +183,7 @@ void draw_gui() {
   // with this I create a path
   //walkTheGrid();
 
-  if (enableScreen == true) {    
+  if (enableScreen == true) {
     Lgrid.draw(view2d, xloc, yloc);
     grid.draw(view2d, xloc, yloc);
   } else {
