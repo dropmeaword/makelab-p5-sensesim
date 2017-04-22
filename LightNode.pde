@@ -14,6 +14,7 @@ class LightNode {
   protected LightGrid _parent;
   public boolean _updated = false;
   public int _whatField;
+  public color _lastColor = 0;
 
   public boolean _refreshed = false;
 
