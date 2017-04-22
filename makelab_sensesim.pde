@@ -46,7 +46,6 @@ String[] ary = pathData.split(" ");
 String[] ary2= pathData2.split(" ");
 ArrayList<PVector> positions = new ArrayList<PVector>();
 
-
 void init_osc()
 {
   println("Listening for Firefly data on port " + OSC_IN_FIREFLY);
@@ -148,11 +147,7 @@ void setup() {
   init_gui();
 
   //with this i test the different animations made by Thomas
-  //Lgrid.setCurrentAnimation(new Rest(50, 5, 5000, Lgrid.bounds(), Lgrid.Xoffset));
-  //Lgrid.setCurrentAnimation(new Attack(100, Lgrid.bounds(), Lgrid.Xoffset));
-  //Lgrid.setCurrentAnimation(new Sleep(500));
-  //Lgrid.setCurrentAnimation(new Lure(50, 2, 2000, Lgrid.bounds(), Lgrid.Xoffset));
-  Lgrid.setCurrentAnimation(new Dead());
+
   Lgrid.setCurrentBehaviour(new Behaviour());
 
   //Lgrid.setCurrentAnimation(new Heatmap());

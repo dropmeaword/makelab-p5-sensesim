@@ -73,7 +73,9 @@ class LightNode {
     out.add( green(c) );
     out.add( blue(c) );
     if (ipaddress != null) {
+
       //println(">>> Sending out an OSC to " + ipaddress);
+
       //println(out, ipaddress);
       oscin.send(out, ipaddress);
     } else {
