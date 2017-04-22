@@ -32,7 +32,11 @@
 
   public void testpattern() {
     OscMessage out = new OscMessage("/node/testpattern");
-    oscin.send(out, ipaddress);
+    if(ipaddress != null) {
+      oscin.send(out, ipaddress);
+    } else {
+      //println("(!!!) I don't have an IP why?");
+    }
   }
 
   public void osc_dispatch_solid(color c) {
@@ -40,7 +44,11 @@
     out.add( red(c) );
     out.add( green(c) );
     out.add( blue(c) );
-    oscin.send(out, ipaddress);
+    if(ipaddress != null) {
+      oscin.send(out, ipaddress);
+    } else {
+      //println("(!!!) I don't have an IP why?");
+    }
   }
 
   public void paint_solid(color c) {
@@ -64,10 +72,10 @@
     OscMessage out = new OscMessage("/node/gradient");
     // add gradient endpoints RGB
     out.add( red(a) );
-    out.add( greeb(a) );
+    out.add( green(a) );
     out.add( blue(a) );
     out.add( red(b) );
-    out.add( greeb(b) );
+    out.add( green(b) );
     out.add( blue(b) );
 
     oscin.send(out, ipaddress);

@@ -99,7 +99,8 @@ void load_sample_paths() {
 void setup() {
   size(1024, 600, P3D);
 
-
+  init_osc();
+  init_networking(GRID_W, GRID_H);
 
   g3 = (PGraphics3D)g;
   grid = new SensorGrid(GRID_W, GRID_H);
@@ -109,8 +110,6 @@ void setup() {
 
   load_sample_paths();
 
-  init_osc();
-  init_networking(GRID_W, GRID_H);
 
   //communication = new Control();
 

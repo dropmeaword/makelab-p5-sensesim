@@ -22,7 +22,8 @@ class LightGrid {
 
         // now that we have created the node we get the IP address
         // based on its row,col position in the grid
-        NetAddress ip = grid_pos_to_ipaddress(i, j);
+        NetAddress ip = grid_pos_to_ip_address(i, j);
+        println("Assigning ip " + ip + " to node in position ("+ i + ", "+ j+")");
         node[i][j].setNetworkAddress( ip );
       }
     }

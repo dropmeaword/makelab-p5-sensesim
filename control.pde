@@ -44,7 +44,7 @@ void handle_firefly_message(OscMessage inmsg) {
     }
 
     //// calculate IP addres of my node given position in grid
-    NetAddress dest = get_ip_from_grid(gridx, gridy);
+    NetAddress dest = grid_pos_to_ip_address(gridx, gridy);
     forward_to_node(outmsg, dest);
   }
 }
