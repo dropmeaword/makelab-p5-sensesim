@@ -16,6 +16,9 @@ class LightNode {
   public int _whatField;
   public color _lastColor = 0;
 
+  public color _lastColorA = 0;
+  public color _lastColorB = 0;
+
   public boolean _refreshed = false;
 
 
@@ -71,6 +74,8 @@ class LightNode {
     out.add( blue(c) );
     if (ipaddress != null) {
 
+      //println(">>> Sending out an OSC to " + ipaddress);
+
       //println(out, ipaddress);
       oscin.send(out, ipaddress);
     } else {
@@ -85,8 +90,7 @@ class LightNode {
   }
 
   public void paint_solid(color c) {
-    //this is the code for the simulator
-    println("current = " + c + "  last = " +_lastColor);
+    //println("current = " + c + "  last = " +_lastColor);
     if(c != _lastColor) { this.refresh(); }
 
     for (int i = 0; i < PIXEL_COUNT *3; i+=3) {
@@ -115,7 +119,9 @@ class LightNode {
   }
 
   public void paint_gradient(color a, color b) {
-    // draw on sim
+
+    if( (a != _lastColorA) || (b != _lastColorB) ) { this.refresh(); }
+
     for (int i = 0; i < PIXEL_COUNT*3; i+=3) {
       float inter = map(i, 0, PIXEL_COUNT*3, 0, 1);
       color c = lerpColor(a, b, inter);
@@ -125,9 +131,12 @@ class LightNode {
     }
 
     // dispatch to network
-    if(this._alive) {
+    if(this._alive && this._refreshed) {
       osc_dispatch_gradient(a, b);
     }
+
+    _lastColorA = a;
+    _lastColorB = b;
   }
 
   public void osc_dispatch_pixels(int []colors) {
