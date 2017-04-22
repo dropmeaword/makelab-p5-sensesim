@@ -55,7 +55,7 @@ class Behaviour {
         if (grid.grid[i][j]._triggered) {
           triggerCount++;
         }
-        if (totalCountPerTrigger[i][j] > 20 && attacked == false) {
+        if (totalCountPerTrigger[i][j] > 5 && attacked == false) {
           Lgrid.setCurrentBehaviour(new AttackBehaviour(i, j));
         }
       }
@@ -124,17 +124,22 @@ class AttackBehaviour extends Behaviour {
   PVector attackStart2;
   int     lengthOfPath = 6;
   PVector []attackPath;
+  int attackX; 
+  int attackY;
 
   AttackBehaviour(int x, int y) {
+    attackX = x;
+    attackY = y;
     attacked = true;
-    pointToAttack = new PVector(x, y);
-    
-    println(pointToAttack);
-    attackStart1 = pickPointOnStepsAway(pointToAttack, lengthOfPath);
-    
-    println(pointToAttack);
-    attackStart2 = pickPointOnStepsAway(pointToAttack, lengthOfPath);
 
+    pointToAttack = new PVector(x, y);
+
+    println(pointToAttack);
+
+    attackStart1 = pickPointOnStepsAway(pointToAttack, lengthOfPath);
+    println(x, y);
+    println(pointToAttack);
+    //attackStart2 = pickPointOnStepsAway(pointToAttack, lengthOfPath);
     println(pointToAttack, attackStart1, attackStart2);
     //calculatePath(pointToAttack, attackStart, lengthOfPath);
   }
@@ -145,8 +150,13 @@ class AttackBehaviour extends Behaviour {
         Lgrid.node[i][j].paint_solid(color(0));
       }
     }
-    Lgrid.node[int(attackStart1.x)][int(attackStart1.y)].paint_solid(color(255));
-    Lgrid.node[int(attackStart2.x)][int(attackStart2.y)].paint_solid(color(255));
+    Lgrid.node[attackX][attackY].paint_solid(color(255, 0, 0));
+    
+    
+    
+    
+    //Lgrid.node[int(attackStart1.x)][int(attackStart1.y)].paint_solid(color(255));
+    //Lgrid.node[int(attackStart2.x)][int(attackStart2.y)].paint_solid(color(255));
   }
 
   public PVector pickPointOnStepsAway(PVector p, int howManySteps) {
