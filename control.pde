@@ -19,7 +19,7 @@ public NetAddress grid_pos_to_ip_address(int row, int col) {
     return null;
   }
 }
-//PVector 
+//PVector
 
 int[] ip_to_grid_pos(int device_id) {
   return ip_to_grid_pos("192.168.8."+device_id);
@@ -79,7 +79,9 @@ void handle_node_heartbeat(OscMessage inmsg) {
   println("HEARTBEAT from node " + inmsg.get(0).intValue() );  /// 206  ->  192.168.8.206
   int x = ip_to_grid_pos(inmsg.get(0).intValue())[0];
   int y = ip_to_grid_pos(inmsg.get(0).intValue())[1];
+  // set the sensor & light node to alive
   grid.grid[x][y]._alive = true;
+  Lgrid.node[x][y]._alive = true;
 }
 
 void handle_node_sensor_data(OscMessage inmsg) {
