@@ -25,19 +25,22 @@ public NetAddress grid_pos_to_ip_address(int row, int col) {
 
 
 
-
-int[] iptopos(String ipstr) {
-  ipstr.split(".");
-  int device_id = Integer.parseInt(ipstr[3]);
-  return iptopos(device_id);
+int[] ip_to_grid_pos(int device_id) {
+  return ip_to_grid_pos("192.168.8."+device_id);
 }
 
-int[] iptopos(int device_id) {
+int[] ip_to_grid_pos(String ipstr) {
   int []coords = new int[2];
+  for (int i = 0; i < GRID_W; i++) {
+    for (int j = 0; j < GRID_H; j++) {
+      if( nodes[i][j].address().equals(ipstr) ) {
+        coords[0] = i; // grid X
+        coords[1] = j; // grid Y
+      } // if
+    } // for
+  } // for
   
-
-
-    return coords;
+  return coords;
 }
 
 

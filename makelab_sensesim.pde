@@ -98,9 +98,13 @@ void load_sample_paths() {
 
 void setup() {
   size(1024, 600, P3D);
-  iptopos(147);
+
   init_osc();
   init_networking(GRID_W, GRID_H);
+
+  int []loc = ip_to_grid_pos(123);
+  println(">>> grid x "+loc[0]+", grid y "+loc[1]+" of ip 192.168.8."+123+" <<<");
+  
 
   g3 = (PGraphics3D)g;
   grid = new SensorGrid(GRID_W, GRID_H);
