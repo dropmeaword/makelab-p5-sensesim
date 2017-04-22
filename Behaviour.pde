@@ -1,30 +1,5 @@
-//class Behaviour {
-//  int [][]triggerCount;
-//  color a,b;
-//  int maxVal = 1;
-//  Behaviour() {
-//    triggerCount = new int[GRID_W][GRID_H];
-//    a = color(random(255), random(255), random(255));
-//    b = color(random(255), random(255), random(255));
-//  }
-
-//  void update() {
-//    for (int j = 0; j < GRID_H; j++) {
-//      for (int i = 0; i < GRID_W; i++) {
-//        if(int(grid.grid[i][j]._triggerCount) >maxVal){
-//        maxVal = int(grid.grid[i][j]._triggerCount);
-//        }
-//        triggerCount[i][j] = int(grid.grid[i][j]._triggerCount);
-//        if (triggerCount[i][j] < maxVal/10) {
-//          Lgrid.node[i][j].paint_solid(a);
-//        }
-//      }
-//    }
-//  }
-//  void show() {
-//  }
-//}
-
+public boolean attacked = false;
+public boolean walkMode = true;
 
 class Behaviour {
   public int [][]totalCountPerTrigger;
@@ -33,41 +8,49 @@ class Behaviour {
   ModelSensor [][]lastTriggered;
   ModelSensor [][]prevTriggered;
   public LightGrid gridBehaviour;
-  public boolean attacked = false;
+  public int totalCount = 0 ; 
   public int maxValue = 1;
-
   //I want to have something that gives me the last triggered sencor. But this can be multiple sensors.. 
   //I also want to have al little history on the seosores that have been triggered in the past so the behaviour can react to that
-
   Behaviour() {
     totalCountPerTrigger = new int[GRID_W][GRID_H];
     activeTriggerCounter = 0;
   }
-
   public void setParentGrid(LightGrid lg) {
     this.gridBehaviour = lg;
   }
 
-  public void update() {
-    int triggerCount = 0; 
-    for (int j = 0; j < GRID_H; j++) {
-      for (int i = 0; i < GRID_W; i++) {
-        totalCountPerTrigger[i][j] = int(grid.grid[i][j]._triggerCount);
-        if (grid.grid[i][j]._triggered) {
-          triggerCount++;
-        }
-        //if (totalCountPerTrigger[i][j] > 50 && attacked == false) {
-        //Lgrid.setCurrentBehaviour(new AttackBehaviour(i, j));
-        //}
-      }
-    }
-    activeTriggerCounter = triggerCount;
+  public void updateParent() {
+    //int triggerCount = 0; 
+    //for (int j = 0; j < GRID_H; j++) {
+    //  for (int i = 0; i < GRID_W; i++) {
+    //    totalCountPerTrigger[i][j] = int(grid.grid[i][j]._triggerCount);
+    //    if (grid.grid[i][j]._triggered) {
+
+    //      Lgrid.setCurrentBehaviour(new followBehaviour(i, j));
+
+    //      triggerCount++;
+    //    }
+    //    if (totalCountPerTrigger[i][j] > 2 && attacked == false && Lgrid.node[i][j]._nodeAttacked == false) {
+    //      Lgrid.setCurrentBehaviour(new AttackBehaviour(i, j));
+    //      attacked = true;
+    //      Lgrid.node[i][j]._nodeAttacked = true;
+    //    }
+    //  }
+    //}
+    //activeTriggerCounter = triggerCount;
+
+
+    //Lgrid.setCurrentBehaviour(new heatmap_behaviour());
+    //Lgrid.node[4][3].paint_gradient(color(255, 0, 0), color(0, 255, 255));
   }//update
+
+  public void update() {
+  }
 
   public void show() {
   }//show
 }//class
-
 
 class FieldBehaviour extends Behaviour {
 
@@ -118,8 +101,7 @@ class FieldBehaviour extends Behaviour {
   }
 }
 
-
-class SleepBehaviour extends Behaviour{
+class SleepBehaviour extends Behaviour {
   int pulse, base;
   int brightness;
   String state = "on";
@@ -150,34 +132,27 @@ class SleepBehaviour extends Behaviour{
       }
     }
   }
-
 }
-
 
 class AttackBehaviour extends Behaviour {
   PVector pointToAttack;
-  PVector attackStart1;
-  PVector attackStart2;
+  PVector []attackStart = new PVector[10];
   int     lengthOfPath = 6;
-  PVector []attackPath;
   int attackX; 
   int attackY;
+  int time;
+  int attackCounter = 0 ; 
 
   AttackBehaviour(int x, int y) {
     attackX = x;
     attackY = y;
     attacked = true;
-
     pointToAttack = new PVector(x, y);
+    time = millis();
 
-    println(pointToAttack);
-
-    attackStart1 = pickPointOnStepsAway(pointToAttack, lengthOfPath);
-    println(x, y);
-    println(pointToAttack);
-    //attackStart2 = pickPointOnStepsAway(pointToAttack, lengthOfPath);
-    println(pointToAttack, attackStart1, attackStart2);
-    //calculatePath(pointToAttack, attackStart, lengthOfPath);
+    for (int i = 0; i <attackStart.length; i++) {
+      attackStart[i] = pickPointOnStepsAway(x, y, lengthOfPath);
+    }
   }
 
   void show() {
@@ -186,40 +161,58 @@ class AttackBehaviour extends Behaviour {
         Lgrid.node[i][j].paint_solid(color(0));
       }
     }
-    Lgrid.node[attackX][attackY].paint_solid(color(255, 0, 0));
-  }
+    Lgrid.node[int(pointToAttack.x)][int(pointToAttack.y)].paint_solid(color(255, 0, 0));
+    //println(attackStart.length);
 
-  public PVector pickPointOnStepsAway(PVector p, int howManySteps) {
-    PVector result = p;
+    if (millis() - time >100) {
+      lengthOfPath--;
+      attackCounter++;
+      time = millis();
+      if (attackCounter > 50) {
+        attacked = false;
+        Lgrid.setCurrentBehaviour(new SleepBehaviour(50));
+      }
+    }
+
+    if (lengthOfPath == 0 ) {
+      lengthOfPath = 6;
+    }
+
+
+    for (int i = 0; i <attackStart.length; i++) {
+      attackStart[i] = pickPointOnStepsAway(attackX, attackY, lengthOfPath);
+      Lgrid.node[int(attackStart[i].x)][int(attackStart[i].y)].paint_solid(color(255, 255, 255));
+    }
+  }//show
+
+  public PVector pickPointOnStepsAway(int incommingX, int incommingY, int howManySteps) {
+    PVector result = new PVector(incommingX, incommingY);
     boolean found = false;
+    int security = 0; 
     while (found == false) {
-      int ranX  = int(random(6));
-      int ranY  = int(random(8));
-      int x = int(p.x) - ranX;
-      int y = int(p.y) - ranY;
+      int ranX  = int(random(GRID_W));
+      int ranY  = int(random(GRID_H));
+      int x = incommingX - ranX;
+      int y = incommingY - ranY;
       x = abs(x);
       y = abs(y);
       int distance = x+y;
-      if (distance == howManySteps) {
+      if (distance == howManySteps) { 
         found = true;
-        result.x = x;
-        result.y = y;
+        result.x = ranX;
+        result.y = ranY;
+      }
+      security++;
+      if (security >100) {
+        found = true;
       }
     }
     return result;
-  }
-
-  void calculatePath(PVector start, PVector end, int l) {
-    attackPath = new PVector[lengthOfPath];
-    for (int i = 0; i < attackPath.length; i++) {
-      print(i);
-    }
-  }
-}
+  }//pickPointsOnStepsAway
+}//attack
 
 
 class heatmap_behaviour extends Behaviour {
-
   color c = color(0);
   heatmap_behaviour() {
   }
@@ -246,6 +239,34 @@ class heatmap_behaviour extends Behaviour {
     Lgrid.node[i][j].paint_solid( color(c));
   }
 }
+
+
+class followBehaviour extends Behaviour {
+  int personX, personY;
+  followBehaviour(int x, int y) {
+    personX = x;
+    personY = y;
+  }
+  void show() {
+    for (int j = 0; j < GRID_H; j++) {
+      for (int i = 0; i < GRID_W; i++) {
+      }
+    }
+    if (personX> 0) {
+      Lgrid.node[personX-1][personY].paint_solid(color(255));
+    }
+    if (personX<GRID_W-1) {
+      Lgrid.node[personX+1][personY].paint_solid(color(255));
+    }
+    if (personY> 0) {
+      Lgrid.node[personX][personY-1].paint_solid(color(255));
+    }
+    if (personY < GRID_H-1) {
+      Lgrid.node[personX][personY+1].paint_solid(color(255));
+    }
+  }
+}
+
 class TestBehaviour extends Behaviour {
   TestBehaviour() {
   }

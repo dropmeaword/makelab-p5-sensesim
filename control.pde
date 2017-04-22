@@ -40,7 +40,6 @@ int[] ip_to_grid_pos(String ipstr) {
 }
 
 
-
 void handle_firefly_message(OscMessage inmsg) {
 
   String payload = inmsg.get(0).stringValue();

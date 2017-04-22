@@ -14,6 +14,7 @@ class LightNode {
   protected LightGrid _parent;
   public boolean _updated = false;
   public int _whatField;
+  public boolean _nodeAttacked = false;
   
   public boolean testing = false;
   

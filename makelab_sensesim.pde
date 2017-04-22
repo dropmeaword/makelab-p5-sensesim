@@ -100,11 +100,7 @@ void init_gui() {
   cursor.y +=20;
   cp5.addButton("behaviour3")
     .setPosition(cursor.x, cursor.y)
-
     ;
-
-
-
   cp5.addToggle("enableScreen")
     .setPosition(width-200, height-100)
     ;  
@@ -157,7 +153,8 @@ void setup() {
   //Lgrid.setCurrentAnimation(new Sleep(500));
   //Lgrid.setCurrentAnimation(new Lure(50, 2, 2000, Lgrid.bounds(), Lgrid.Xoffset));
   Lgrid.setCurrentAnimation(new Dead());
-  Lgrid.setCurrentBehaviour(new heatmap_behaviour());
+  Lgrid.setCurrentBehaviour(new SleepBehaviour(100));
+
   //Lgrid.setCurrentAnimation(new Heatmap());
   //there should be an "animation" added where
   // udps = new UDP( this, 6005 ); // this is the for the communication with Grasshopper
@@ -184,7 +181,7 @@ void draw_gui() {
   track.y = mouseY - yloc;
   grid.sense(track.x, track.y); //for this i should use
   // with this I create a path
-  walkTheGrid();
+  //walkTheGrid();
 
   if (enableScreen == true) {    
     Lgrid.draw(view2d, xloc, yloc);
@@ -192,10 +189,7 @@ void draw_gui() {
   } else {
     Lgrid.run( xloc, yloc);
     grid.run( xloc, yloc);
-    
   }
-
-
   //testValuesSensors();
   if (testpattern) {
     Lgrid.setCurrentBehaviour(new TestBehaviour());
