@@ -14,10 +14,13 @@ class LightNode {
   protected LightGrid _parent;
   public boolean _updated = false;
   public int _whatField;
-  public boolean _nodeAttacked = false;
-  
+
+
+  public boolean _alive = false;
+
+
   public boolean testing = false;
-  
+
 
   public NetAddress ipaddress;
 
@@ -47,12 +50,14 @@ class LightNode {
   }
 
   public void testpattern() {
-    OscMessage out = new OscMessage("/node/testpattern");
-    if (ipaddress != null) {
-      oscin.send(out, ipaddress);
-    } else {
-      //println("(!!!) I don't have an IP why?");
-    }
+    if(this._alive) {
+      OscMessage out = new OscMessage("/node/testpattern");
+      if (ipaddress != null) {
+        oscin.send(out, ipaddress);
+      } else {
+        //println("(!!!) I don't have an IP why?");
+      }
+    } // if
   }
 
   public void osc_dispatch_solid(color c) {
@@ -77,7 +82,10 @@ class LightNode {
       pix[i+1] = int(green(c));
       pix[i+2] = int(blue(c));
     }
-    osc_dispatch_solid(c);
+
+    if(this._alive) {
+      osc_dispatch_solid(c);
+    }
   }
 
   public void osc_dispatch_gradient(color a, color b) {
@@ -103,26 +111,30 @@ class LightNode {
     }
 
     // dispatch to network
-    osc_dispatch_gradient(a, b);
+    if(this._alive) {
+      osc_dispatch_gradient(a, b);
+    }
   }
 
+  public void osc_dispatch_pixels(int []colors) {
+    OscMessage out = new OscMessage("/node/pixels");
+    for (int i =0; i < PIXEL_COUNT*3; i +=3) {
+      out.add( colors[i] );
+      out.add( colors[i+1] );
+      out.add( colors[i+2] );
+    }
+    oscin.send(out, ipaddress);
+  }
 
   public void paint_pixels(int []colors) {   // this thing takes an array of 36*3 integers
-    // read the contents of pix[] and push them to the sim/hard node.
-
-    //osc.send("/node/pixels", this.pix);
-
-    // this is how to address individual pixel values in our node:
-    //for(int i = 0; i < PIXEL_COUNT*3; i += 3) {
-    //  int r = this.pix[i];
-    //  int g = this.pix[i+1];
-    //  int b = this.pix[i+2];
-    //}
-
     for (int i =0; i < PIXEL_COUNT*3; i +=3) {
       pix[i] = colors[i];
       pix[i+1] = colors[i+1];
       pix[i+2] = colors[i+2];
+    }
+
+    if(this._alive) {
+      osc_dispatch_pixels( colors );
     }
   }
 
