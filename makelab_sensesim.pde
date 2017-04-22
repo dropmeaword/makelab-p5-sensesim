@@ -98,6 +98,9 @@ void load_sample_paths() {
 
 void setup() {
   size(1024, 600, P3D);
+
+
+
   g3 = (PGraphics3D)g;
   grid = new SensorGrid(GRID_W, GRID_H);
   Lgrid = new LightGrid(GRID_W, GRID_H);
@@ -163,7 +166,7 @@ void draw_gui() {
   grid.sense(track.x, track.y); //for this i should use
 
   // with this I create a path
-  if (millis() > time + 500) {
+  if (millis() > time + 1) {
     time = millis();
     if (stepIndex == ary.length-1) {
       stepIndex= 0;
@@ -181,8 +184,8 @@ void draw_gui() {
           grid.grid[int(path[stepIndex].x)][int(path[stepIndex].y)]._triggerCount++;
           grid.grid[int(path[stepIndex].x)][int(path[stepIndex].y)]._triggered = true;
         } else if (i == path2[stepIndex2].x && j == path2[stepIndex2].y) {
-          grid.grid[int(path2[stepIndex].x)][int(path2[stepIndex].y)]._triggerCount++;
-          grid.grid[int(path2[stepIndex].x)][int(path2[stepIndex].y)]._triggered = true;
+          grid.grid[int(path2[stepIndex2].x)][int(path2[stepIndex2].y)]._triggerCount++;
+          grid.grid[int(path2[stepIndex2].x)][int(path2[stepIndex2].y)]._triggered = true;
         } else {
           grid.grid[i][j]._triggered = false;
         }
