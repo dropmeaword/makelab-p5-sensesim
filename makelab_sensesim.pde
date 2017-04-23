@@ -15,6 +15,9 @@ PGraphics3D g3;
 
 int threshold = 100;
 int detail = 100;
+
+
+int speedAttackAnimation = 300;
 int sensitivity = 30;
 boolean testpattern = false;
 
@@ -31,6 +34,7 @@ boolean behaviour1 = false;
 boolean behaviour2 = false;
 boolean behaviour3 = false;
 boolean behaviour4  = false;
+boolean behaviour5  = false;
 
 PGraphics view2d;
 
@@ -67,9 +71,9 @@ void init_gui() {
   cursor.y = 500;
   cursor.x = 40;
   cursor.y += 15;
-  cp5.addSlider("detail")
+  cp5.addSlider("speedAttackAnimation")
     .setPosition(cursor.x, cursor.y)
-    .setRange(0, 16)
+    .setRange(10, 1000)
     //.setGroup(g1)
     ;
 
@@ -92,7 +96,7 @@ void init_gui() {
     ;
 
   cursor.x += 200;
-  cursor.y -= 50;
+  cursor.y -= 80;
 
   cp5.addButton("behaviour1")
     .setPosition(cursor.x, cursor.y)
@@ -108,6 +112,11 @@ void init_gui() {
 
   cursor.y +=20;
   cp5.addButton("behaviour4")
+    .setPosition(cursor.x, cursor.y)
+    ;
+
+  cursor.y +=20;
+  cp5.addButton("behaviour5")
     .setPosition(cursor.x, cursor.y)
     ;
 
@@ -135,7 +144,7 @@ void load_sample_paths() {
 
 void setup() {
   size(1024, 600, P3D);
-
+  
   init_osc();
   init_networking(GRID_W, GRID_H);
 
@@ -161,7 +170,7 @@ void setup() {
 
   //with this i test the different animations made by Thomas
 
-  Lgrid.setCurrentBehaviour(new Behaviour());
+  Lgrid.setCurrentBehaviour(new TestBehaviour());
 
   //Lgrid.setCurrentAnimation(new Heatmap());
   //there should be an "animation" added where
@@ -189,7 +198,7 @@ void draw_gui() {
   track.y = mouseY - yloc;
   grid.sense(track.x, track.y); //for this i should use
   // with this I create a path
-  walkTheGrid();
+  //walkTheGrid();
 
 
   if (enableScreen == true) {
@@ -219,6 +228,9 @@ void draw_gui() {
   } else if (behaviour4 == true) {
     Lgrid.setCurrentBehaviour(new LineBehaviour());
     behaviour4 = false;
+  }else if (behaviour5 == true) {
+    Lgrid.setCurrentBehaviour(new Disco());
+    behaviour5 = false;
   }
 
 
@@ -252,7 +264,7 @@ void testValuesSensors() {
 }//void
 
 void walkTheGrid() { // these are the RHINO  / GRASSHOPPER files
-  if (millis() > time + 1) {
+  if (millis() > time + 5000) {
     time = millis();
     if (stepIndex == ary.length-1) {
       stepIndex= 0;
@@ -268,9 +280,11 @@ void walkTheGrid() { // these are the RHINO  / GRASSHOPPER files
       for (int i = 0; i < GRID_W; i++) {
         if (i == path[stepIndex].x && j == path[stepIndex].y) {
           grid.grid[int(path[stepIndex].x)][int(path[stepIndex].y)]._triggerCount++;
+          grid.grid[int(path[stepIndex].x)][int(path[stepIndex].y)]._trgrCnt++;
           grid.grid[int(path[stepIndex].x)][int(path[stepIndex].y)]._triggered = true;
         } else if (i == path2[stepIndex2].x && j == path2[stepIndex2].y) {
           grid.grid[int(path2[stepIndex2].x)][int(path2[stepIndex2].y)]._triggerCount++;
+          grid.grid[int(path[stepIndex].x)][int(path[stepIndex].y)]._trgrCnt++;
           grid.grid[int(path2[stepIndex2].x)][int(path2[stepIndex2].y)]._triggered = true;
         } else {
           grid.grid[i][j]._triggered = false;

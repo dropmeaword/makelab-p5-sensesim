@@ -42,11 +42,11 @@ int[] ip_to_grid_pos(String ipstr) {
 
 void osc_dispatch_trigger(int nodeid) {
   // if(isFFOnline == true) {
-    println("sensor trigger received, forwarding it to firefly " + nodeid);
-    OscMessage out = new OscMessage("/node/sensor");
-    out.add( nodeid );
-    oscin.send(out, ffout);
-//  }
+  println("sensor trigger received, forwarding it to firefly " + nodeid);
+  OscMessage out = new OscMessage("/node/sensor");
+  out.add( nodeid );
+  oscin.send(out, ffout);
+  //  }
 }
 
 
@@ -107,6 +107,7 @@ void handle_node_sensor_data(OscMessage inmsg) {
 
   grid.grid[x][y]._triggered = true;
   grid.grid[x][y]._triggerCount++;
+  grid.grid[x][y]._trgrCnt++;
   grid.grid[x][y]._triggerTimer = 0;
   osc_dispatch_trigger( sensorid );
 }

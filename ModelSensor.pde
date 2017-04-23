@@ -9,6 +9,7 @@ class ModelSensor {
   public long _triggerCount;
   public boolean _alive;
   public int _triggerTimer = 0;
+  public long _trgrCnt = 0; 
 
   protected SensorGrid _parent;
 
