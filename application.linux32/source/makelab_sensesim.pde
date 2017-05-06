@@ -236,7 +236,7 @@ void testValuesSensors() {
     for (int i = 0; i < GRID_W; i++) {
       if ( i == g && j == h ) {
         grid.grid[g][h]._triggerCount++;
-        grid.grid[g][h]._triggered = true;
+        grid.grid[g][h].trigger(); //_triggered = true;
       } else {
         grid.grid[i][j]._triggered = false;
       }

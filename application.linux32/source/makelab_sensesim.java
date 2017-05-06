@@ -1,23 +1,23 @@
-import processing.core.*; 
-import processing.data.*; 
-import processing.event.*; 
-import processing.opengl.*; 
+import processing.core.*;
+import processing.data.*;
+import processing.event.*;
+import processing.opengl.*;
 
-import controlP5.*; 
-import gab.opencv.*; 
-import java.util.*; 
-import peasy.*; 
-import oscP5.*; 
-import netP5.*; 
+import controlP5.*;
+import gab.opencv.*;
+import java.util.*;
+import peasy.*;
+import oscP5.*;
+import netP5.*;
 
-import java.util.HashMap; 
-import java.util.ArrayList; 
-import java.io.File; 
-import java.io.BufferedReader; 
-import java.io.PrintWriter; 
-import java.io.InputStream; 
-import java.io.OutputStream; 
-import java.io.IOException; 
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.PrintWriter;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.IOException;
 
 public class makelab_sensesim extends PApplet {
 
@@ -149,7 +149,7 @@ public void load_sample_paths() {
 }
 
 public void setup() {
-  
+
 
   init_osc();
   init_networking(GRID_W, GRID_H);
@@ -259,7 +259,7 @@ public void testValuesSensors() {
     for (int i = 0; i < GRID_W; i++) {
       if ( i == g && j == h ) {
         grid.grid[g][h]._triggerCount++;
-        grid.grid[g][h]._triggered = true;
+        grid.grid[g][h].trigger(); // was: _triggered = true;
       } else {
         grid.grid[i][j]._triggered = false;
       }
@@ -284,10 +284,10 @@ public void walkTheGrid() { // these are the RHINO  / GRASSHOPPER files
       for (int i = 0; i < GRID_W; i++) {
         if (i == path[stepIndex].x && j == path[stepIndex].y) {
           grid.grid[PApplet.parseInt(path[stepIndex].x)][PApplet.parseInt(path[stepIndex].y)]._triggerCount++;
-          grid.grid[PApplet.parseInt(path[stepIndex].x)][PApplet.parseInt(path[stepIndex].y)]._triggered = true;
+          grid.grid[PApplet.parseInt(path[stepIndex].x)][PApplet.parseInt(path[stepIndex].y)].trigger(); //was: _triggered = true;
         } else if (i == path2[stepIndex2].x && j == path2[stepIndex2].y) {
           grid.grid[PApplet.parseInt(path2[stepIndex2].x)][PApplet.parseInt(path2[stepIndex2].y)]._triggerCount++;
-          grid.grid[PApplet.parseInt(path2[stepIndex2].x)][PApplet.parseInt(path2[stepIndex2].y)]._triggered = true;
+          grid.grid[PApplet.parseInt(path2[stepIndex2].x)][PApplet.parseInt(path2[stepIndex2].y)].trigger(); // was: _triggered = true;
         } else {
           grid.grid[i][j]._triggered = false;
         }
@@ -343,7 +343,7 @@ class Sleep extends Animation {
     this.base = pulse;
   }
 
-  public void update() { 
+  public void update() {
 
     if (pulse <= 0) {
       state = "off";
@@ -435,7 +435,7 @@ class Lure extends Animation {
   int xOffset;
 
   Lure(int size, int movement, int delay, PVector bounds, int xOff) {
-    this.size = size;  
+    this.size = size;
     _bounds = bounds;
     xOffset = xOff;
     this.delay = delay;
@@ -583,7 +583,7 @@ class Behaviour {
   public boolean attacked = false;
   public int maxValue = 1;
 
-  //I want to have something that gives me the last triggered sencor. But this can be multiple sensors.. 
+  //I want to have something that gives me the last triggered sencor. But this can be multiple sensors..
   //I also want to have al little history on the seosores that have been triggered in the past so the behaviour can react to that
 
   Behaviour() {
@@ -596,7 +596,7 @@ class Behaviour {
   }
 
   public void update() {
-    int triggerCount = 0; 
+    int triggerCount = 0;
     for (int j = 0; j < GRID_H; j++) {
       for (int i = 0; i < GRID_W; i++) {
         totalCountPerTrigger[i][j] = PApplet.parseInt(grid.grid[i][j]._triggerCount);
@@ -618,11 +618,11 @@ class Behaviour {
 
 class FieldBehaviour extends Behaviour {
 
-  int []nodesPerField; 
+  int []nodesPerField;
 
   FieldBehaviour() {
     makeFields();
-  } 
+  }
   public void show() {
     for (int j = 0; j < GRID_H; j++) {
       for (int i = 0; i < GRID_W; i++) {
@@ -658,7 +658,7 @@ class FieldBehaviour extends Behaviour {
       }
     }
     for (int j = 0; j < GRID_H; j++) {
-      for (int i = 0; i < GRID_W; i++) {        
+      for (int i = 0; i < GRID_W; i++) {
         nodesPerField[Lgrid.node[i][j]._whatField]++;
       }
     }
@@ -674,7 +674,7 @@ class SleepBehaviour extends Behaviour{
     this.pulse = pluse;
     this.base = pulse;
   }
-  public void update() { 
+  public void update() {
     if (pulse <= 0) {
       state = "off";
     }
@@ -707,7 +707,7 @@ class AttackBehaviour extends Behaviour {
   PVector attackStart2;
   int     lengthOfPath = 6;
   PVector []attackPath;
-  int attackX; 
+  int attackX;
   int attackY;
 
   AttackBehaviour(int x, int y) {
@@ -808,10 +808,10 @@ class TestBehaviour extends Behaviour {
 public static class Geometry {
   public static boolean inRect(double centerX, double centerY, double radius, double x, double y)
   {
-          return x >= centerX - radius && x <= centerX + radius && 
+          return x >= centerX - radius && x <= centerX + radius &&
               y >= centerY - radius && y <= centerY + radius;
-  }    
-  
+  }
+
   public static boolean inCircle(double centerX, double centerY, double radius, double x, double y)
   {
       if(inRect(centerX, centerY, radius, x, y))
@@ -825,9 +825,9 @@ public static class Geometry {
           return distanceSquared <= radiusSquared;
       }
       return false;
-  } 
-  
-  
+  }
+
+
 }
 class Heatmap extends Animation {
   int maxValue = 1;
@@ -975,9 +975,9 @@ class LightNode {
   protected LightGrid _parent;
   public boolean _updated = false;
   public int _whatField;
-  
+
   public boolean testing = false;
-  
+
 
   public NetAddress ipaddress;
 
@@ -1148,7 +1148,7 @@ class ModelSensor {
 
   public int _sensitivity; // how many ms the thing must be present before it's detected
   public float _radius; // radius of the area sensed
-  public long _lastDetected; 
+  public long _lastDetected;
   public boolean _triggered;
   public long _triggerCount;
   public boolean _alive;
@@ -1222,7 +1222,7 @@ class ModelSensor {
   //          _lastDetected = -1;
   //          _triggered = retval = true;
   //          _triggerCount++;
-  //          // @NOTE must debounce so that it's not triggered more than once 
+  //          // @NOTE must debounce so that it's not triggered more than once
   //          // every time you go under the sensor
   //        }
   //      }
@@ -1237,7 +1237,7 @@ class Person {
   PVector pos;
   PVector[] locs;
 
-  Person(PVector pos) {  
+  Person(PVector pos) {
     this.pos = pos;
     locs = new PVector[2]; // create the array that holds the vectors
     // create the vectors
@@ -1252,19 +1252,19 @@ class Person {
   }
 
   public void show() {
-    
+
 //    fill(255, 0, 0);
 //    ellipse(pos.x, pos.y, 30, 30);
 //    for (int i = 0; i < points.length; i++) {
 //      float dist = dist(p.pos.x, p.pos.y, points[i].x, points[i].y);
 //      if (dist < 30) {
 //        points[i].c = color(255, 0, 0);
-        
+
 //        locs[1] = locs[0].copy();
-        
+
 //        locs[0].x = mouseX;
 //        locs[0].y = mouseY;
-        
+
 //        float dot = dist(locs[0].x , locs[0].y, locs[1].x, locs[1].y);
 //        println(dot);
 //      } else {
@@ -1343,8 +1343,8 @@ class SensorGrid {
         grid[i][j].setSensitivity(sensitivity);
         if (grid[i][j]._triggered) {
           //activatedSensors[i][j]
-          
-          
+
+
           PVector testVal = new PVector(i, j);
           Lgrid.testValues = testVal;
         }
@@ -1385,7 +1385,7 @@ public NetAddress grid_pos_to_ip_address(int row, int col) {
 }
 
 
-//PVector 
+//PVector
 
 
 
@@ -1455,7 +1455,7 @@ public void handle_node_sensor_data(OscMessage inmsg) {
 
   int x = ip_to_grid_pos(inmsg.get(0).intValue())[0];
   int y = ip_to_grid_pos(inmsg.get(0).intValue())[1];
-  grid.grid[x][y]._triggered = true;
+  grid.grid[x][y].trigger(); // was: _triggered = true;
 }
 
 public void handle_hardware_message(OscMessage inmsg) {
